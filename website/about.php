@@ -102,11 +102,12 @@
             margin-left: 20px;
             margin-top: 10px; /* Center horizontally and adjust top margin */
             border-radius: 10px;
-            text-align: left;
+            justify-content: center;
         }
 
         .bod {
-           
+           width: 100%;
+           text-align: center;
         }
     </style>
 </head>
@@ -141,7 +142,7 @@
 
         <div class="mainbox2">
           <div class="bod">
-         <h3> BOARD OF DIRECTORS </h3> 
+             <h3> BOARD OF DIRECTORS </h3> 
           </div>
         </div>
 
