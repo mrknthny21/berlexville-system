@@ -15,14 +15,14 @@
             padding: 0;
             box-sizing: border-box;
         }
+
+
     </style>
 </head>
 
 <body>
 <?php include 'website-navbar.php'; ?>
-    <!-- Your page content goes here -->
-
-    <!-- Include your JavaScript and other body elements here -->
+   
 
 </body>
 

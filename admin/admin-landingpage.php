@@ -1,1 +1,6 @@
-<?php echo "hi"?>
+<?php 
+ include 'admin-nav-sidebars.php';
+
+
+
+?>

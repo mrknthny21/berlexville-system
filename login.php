@@ -1,3 +1,51 @@
+<?php
+// CONNECTION
+include 'db_connect.php';
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['submit'])) {
+        $username = $_POST['id'];
+        $password = $_POST['password'];
+
+        $Result = mysqli_query($conn, "SELECT account_id, password, 'admin' as role FROM tbl_admin WHERE account_id ='$username' AND password='$password'
+		UNION
+		SELECT account_id, password, 'user' as role FROM tbl_homeowners WHERE account_id ='$username' AND password='$password'");
+
+        if (!$Result) {
+            // Query execution failed
+            die("Query failed: " . mysqli_error($conn));
+        }
+
+        $matchedRows = mysqli_num_rows($Result);
+
+        if ($matchedRows > 0) {
+            $row = mysqli_fetch_assoc($Result);
+            $id = $row['account_id'];
+            $role = $row['role'];
+
+            $_SESSION['name'] = $username;
+            $_SESSION['account_id'] = $id;
+
+            if ($role == 'admin') {
+                header("location: admin/admin-landingpage.php?id=$id");
+                exit();
+            } elseif ($role == 'user') {
+                header("location: user/user-landingpage.php?id=$id");
+                exit();
+            }
+        } else {
+            // No matching user found
+            echo ("No data matched");
+            exit();
+        }
+    }
+}
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
     
@@ -28,11 +76,6 @@
             
             display: flex;
             align-items: center;    
-            
-           
-          
-           
-
         }
 
         
@@ -225,18 +268,18 @@
             
          </div>
       
-            <div class="loginbox">
-            <form>
-            <h2>Login to your account</h2>
-                <label for="homeownersId" >Homeowners ID:</label>
-                <input style="margin-bottom: 15px;" type="text" id="homeownersId" name="homeownersId" required>
+         <div class="loginbox">
+            <form method="post" action="">
+                <h2>Login to your account</h2>
+                <label for="homeownersId">Homeowners ID:</label>
+                <input style="margin-bottom: 15px;" type="text" id="homeownersId" name="id" required>
 
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
 
-                <button type="submit">Log In</button>
+                <button type="submit" name="submit">Log In</button>
             </form>
-            
+        </div>
 
 
             </div>
@@ -249,39 +292,4 @@
 
 
 
-    <?php
-    // Database connection parameters
-        $servername = "localhost";
-        $username = "";
-        $password = "";
-        $dbname = "db_berlex";
-
-        // Create a connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        // Check the connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-    // Check if the form is submitted
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Get user input from the form
-        $homeownersId = ($_POST["homeownersId"]);
-        $password = ($_POST["password"]);
-
-        // Query to check if the provided credentials are valid
-        $sql = "SELECT * FROM tbl_homeowners WHERE username = '$homeownersId' AND password = '$password'";
-        $result = $conn->query($sql);
-
-        // Check if there is a match
-        if ($result->num_rows > 0) {
-            echo "Invalid credentials. Please try again.";
-        // Redirect to the admin landing page
-        header("Location: admin/admin-landingpage.php");
-        } else {
-            echo "Invalid credentials. Please try again.";
-        }
-    }
-
-    ?>
 </html>
