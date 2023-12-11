@@ -102,11 +102,12 @@
             margin-left: 20px;
             margin-top: 10px; /* Center horizontally and adjust top margin */
             border-radius: 10px;
-            text-align: left;
+            justify-content: center;
         }
 
         .bod {
-           
+           width: 100%;
+           text-align: center;
         }
     </style>
 </head>
@@ -114,8 +115,40 @@
 <body>
 <?php include 'website-navbar.php'; ?>
     <!-- Your page content goes here -->
+    <div class="mainbox">
+        <div class="leftbox">
+            <div class= "box1">
+                <div class="history">
+                    <p>History</p>
+                </div>
+            </div>
 
-    <!-- Include your JavaScript and other body elements here -->
+            <div class= "box2">
+                <div class="mission">
+                    <p>Mission</p>
+                </div>
+
+                <div class="vision">
+                    <p>Vision</p>
+                </div>
+            </div>
+        </div>
+
+
+            <div class = "picbox">
+                <p> Picture </p>
+            </div>
+        </div>
+
+        <div class="mainbox2">
+          <div class="bod">
+             <h3> BOARD OF DIRECTORS </h3> 
+          </div>
+        </div>
+
+       
+    </div>
+    
 
 </body>
 
