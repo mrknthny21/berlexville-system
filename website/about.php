@@ -41,6 +41,7 @@
             border-radius: 10px;
             align-items: left;
             justify-content: left;
+            background-color: #FFFFFF;
         }
 
         .mission {
@@ -56,6 +57,7 @@
             align-items: left;
             justify-content: left;
             float: left;
+            background-color: #FFFFFF;
         }
 
         .vision {
@@ -71,6 +73,7 @@
             align-items: left;
             justify-content: left;
             float: left;
+            background-color: #FFFFFF;
         }
 
         .box2 {
@@ -90,10 +93,12 @@
             align-items: left;
             justify-content: left;
             float: left; 
+            background-color: #FFFFFF;
         }
 
         .mainbox2 {
             display: flex;
+            flex-wrap: wrap;
             flex-direction: row;
             padding: 10px;
             height: 290px;
@@ -103,11 +108,104 @@
             margin-top: 10px; /* Center horizontally and adjust top margin */
             border-radius: 10px;
             justify-content: center;
+            background-color: #4F71CA;
         }
 
         .bod {
            width: 100%;
            text-align: center;
+        }
+
+        .pbox {
+            display: flex;
+            flex-direction: row;
+            padding: 10px;
+            height: 165px;
+            width: 140px;
+            border: 1px black solid;
+            margin-left: 20px;
+            margin-top: 1px; /* Center horizontally and adjust top margin */
+            border-radius: 10px;
+            justify-content: center;
+            background-color: #FFFFFF;
+        }
+
+        .vpbox{
+            display: flex;
+            flex-direction: row;
+            padding: 10px;
+            height: 165px;
+            width: 140px;
+            border: 1px black solid;
+            margin-left: 20px;
+            margin-top: 1px; /* Center horizontally and adjust top margin */
+            border-radius: 10px;
+            justify-content: center;
+            background-color: #FFFFFF;
+        }
+
+        .sbox {
+            display: flex;
+            flex-direction: row;
+            padding: 10px;
+            height: 165px;
+            width: 140px;
+            border: 1px black solid;
+            margin-left: 20px;
+            margin-top: 1px; /* Center horizontally and adjust top margin */
+            border-radius: 10px;
+            justify-content: center;
+            background-color: #FFFFFF;
+        }
+
+        .tbox{
+            display: flex;
+            flex-direction: row;
+            padding: 10px;
+            height: 165px;
+            width: 140px;
+            border: 1px black solid;
+            margin-left: 20px;
+            margin-top: 1px; /* Center horizontally and adjust top margin */
+            border-radius: 10px;
+            justify-content: center;
+            background-color: #FFFFFF;
+        }
+
+        .abox{
+            display: flex;
+            flex-direction: row;
+            padding: 10px;
+            height: 165px;
+            width: 140px;
+            border: 1px black solid;
+            margin-left: 20px;
+            margin-top: 1px; /* Center horizontally and adjust top margin */
+            border-radius: 10px;
+            justify-content: center;
+            background-color: #FFFFFF;
+        }
+
+        .texth {
+            color: black; 
+        }
+
+        .textm {
+            color: black; 
+        }
+
+        .textv {
+            color: black; 
+        }
+
+        .textp {
+            color: black; 
+        }
+
+
+        .textbod { 
+            font-weight: bold; 
+            color: black; 
         }
     </style>
 </head>
@@ -119,33 +217,46 @@
         <div class="leftbox">
             <div class= "box1">
                 <div class="history">
-                    <p>History</p>
+                    <p class="texth">History</p>
                 </div>
             </div>
 
             <div class= "box2">
                 <div class="mission">
-                    <p>Mission</p>
+                    <p class="textm">Mission</p>
                 </div>
 
                 <div class="vision">
-                    <p>Vision</p>
+                    <p class="textv">Vision</p>
                 </div>
             </div>
         </div>
 
 
             <div class = "picbox">
-                <p> Picture </p>
+                <p class="textp"> Picture </p>
             </div>
         </div>
 
         <div class="mainbox2">
           <div class="bod">
-             <h3> BOARD OF DIRECTORS </h3> 
+             <h3 class="textbod"> BOARD OF DIRECTORS </h3> 
           </div>
+          <div class="pbox">
+          </div>
+          <div class="vpbox">
+          </div>
+          <div class="sbox">
+          </div>
+          <div class="tbox">
+          </div>
+          <div class="abox">
+          </div>
+
+
         </div>
 
+       
        
     </div>
     
