@@ -35,8 +35,8 @@
         }
                 
         .tab-box:hover {
-    background-color: #4F71CA; /* Change to your desired hover color */
-}
+            background-color: #4F71CA; /* Change to your desired hover color */
+        }
 
     </style>
 
