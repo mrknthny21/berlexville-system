@@ -232,13 +232,13 @@
         </a>
         </div>
 
-        <a href="user-residence-information.php" class="tab-box">
+        <a href="user-monthly-dues.php" class="tab-box">
             <i class="fa-regular fa-calendar-check"></i>
             <p>Monthly Dues</p>
         </a>
 
         
-        <a href="user-account-information.php" class="tab-box">
+        <a href="user-amilyar.php" class="tab-box">
             <i class="fa-regular fa-credit-card"></i>
             <p>Amilyar</p>
         </a>

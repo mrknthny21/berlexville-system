@@ -232,7 +232,7 @@
         </a>
         </div>
 
-        <a href="user-residence-information.php" class="tab-box">
+        <a href="user-christmas-poll.php" class="tab-box">
             <i class="fa-regular fa-user"></i>
             <p>Christmas Party</p>
         </a>

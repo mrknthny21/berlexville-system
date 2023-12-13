@@ -147,7 +147,7 @@
           display: flex;
           align-items: center; /* Align items vertically in the center */
           border: 1px solid black;
-          width: 62vw;
+          width: 20vw;
           height: 15vh;
           margin: 15px;
           border-radius: 10px;
@@ -158,6 +158,14 @@
           color: inherit;
       }
 
+      .tab-box i {
+          margin-right: 8px; /* Adjust as needed to create space between icon and text */
+      }
+              
+      .tab-box:hover {
+          background-color: #4F71CA; /* Change to your desired hover color */
+      }
+
       .upperbox {
             border-bottom: 1px black solid;
             width: 100vw;
@@ -165,75 +173,17 @@
             flex-direction: row;
             justify-content: space-between;
             padding: 10px;
-            position: relative;
         }
 
         .upperbox i {
             font-size: 25px;
         }
-
-
-    .boxes {
-        display: flex;
-        justify-content: space-around;
-        position: relative;
-        width: 100%;
-        flex-direction: column;
-        height: 70vh;
-    }
-    .box {
-        width: 100%; 
-        height: 25%; 
-        background-color: #ffffff;
-        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-    .box h5 {
-        margin-bottom: 5px;
-        font-size: 16px;
-        font-weight: 400;
-    }
-
-    .box .buttons {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        flex-wrap: wrap;
-    }
-
-    .box .buttons button {
-        padding: 8px 18px;
-        font-size: 13px;
-        border-radius: 5px;
-        border: 1px solid #000;
-        background-color: #f9f9f9;
-        cursor: pointer;
-    }
-    .box .buttons button:hover {
-        transform: scale(1.01);
-    }
-
-    .poll_button button{
-    background-color: #6FBB76;
-    color: white;
-    width: 200px;
-    height: 50px;
-    font-family: 'Poppins';
-}
-.poll_button button:hover{
-    background-color: #008A0E;
-}
     </style>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <title>Communnity</title>
+        <title>Payments</title>
     </head>
    <body>
         <div class="navbar">
@@ -273,47 +223,14 @@
 
         <div class="content">
 
-            <div class ="content-area">
+        <div class ="content-area">
 
-            <div class="upperbox">
-                <p>Christmas Party</p>
-                <a href="user-poll.php">
-                <i class="fa-regular fa-square-caret-left"></i>
-            </a>
+        <div class="upperbox">
+            <p>Amilyar</p>
+            <a href="user-payments.php">
+            <i class="fa-regular fa-square-caret-left"></i>
+        </a>
         </div>
-
-        <!--content box--->
-            <section class="boxes">
-                <div class="box">
-                    <h5>When is your preffered date for the celebration of Christmas party in our village?</h5>
-                    <div class="buttons">
-                        <button>December 15, 2023 </button>
-                        <button>December 16, 2023 </button>
-                        <button>December 17, 2023 </button>
-                    </div>
-                </div>
-                <div class="box">
-                    <h5>What is your preffered method to prepare for our food?</h5>
-                    <div class="buttons">
-                        <button>Bring your Own Food  </button>
-                        <button>Contribution</button>
-                        <button>Assigned Food</button>
-                    </div>
-                </div>
-                <div class="box">
-                    <h5>If you were to contribute for pood preparation and Prizes, how much are you willing to spend?</h5>
-                    <div class="buttons">
-                        <button>PHP 100</button>
-                        <button>PHP 500</button>
-                        <button>PHP 500</button>
-                    </div>
-                </div>
-                <div class="poll_button">
-                    <button type="submit" class="btn btn-primary">SUBMIT</button>
-                </div>
-            </section>
-
-
         </div>
     </body>
 </html> 
