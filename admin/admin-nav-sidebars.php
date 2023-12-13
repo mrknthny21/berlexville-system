@@ -29,11 +29,11 @@
         }
 
         .logobox{
-            height: 65px;
+            height: 62px;
             margin: 5px;
             position: fixed;
             width: 300px;
-            margin-left: 40px;
+            margin-left: 15px;
             display: flex;
             flex-direction: row;
         }
@@ -44,8 +44,8 @@
         }
 
         .logo img {
-            width:70px;
-            height: 60px;
+            width:66px;
+            height: 56px;
             margin-top: 3px;
         }
 
@@ -63,7 +63,7 @@
 
         .title-berlex p {
             font-family: 'Poppins', sans-serif;
-            font-size:30px;
+            font-size:27px;
             font-weight: 700;
         }
 
@@ -77,14 +77,14 @@
         .title-home p{
             font-family: 'Abel', sans-serif;
             font-weight: lighter;
-            font-size: 17px;  
+            font-size: 15px;  
             color: white;
         }
 
         
         .login-button{
             margin:10px;
-            margin-left: 67vw;
+            margin-left: 72vw;
             position: relative;
         }
 
@@ -104,8 +104,8 @@
    
 
         .sidebar {
-            height: 100%;
-            width: 16vw;
+            height: 100vh;
+            width: 17vw;
             position: fixed;
             background-color: white; /* Set background color to white */
             padding-top: 10px; /* Adjusted to match the height of the navbar */

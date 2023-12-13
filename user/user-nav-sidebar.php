@@ -175,10 +175,10 @@
 
         <div class="sidebar">
             <a href="admin-landingpage.php"><img src="../assets/home.png" alt="Home Icon"> Home</a>
-            <a href="admin-records.php"><img src="../assets/records.png" alt="Records Icon"> Records</a>
-            <a href="admin-accounting.php"><img src="../assets/calculator.png" alt="Accounting Icon"> Accounting</a>
-            <a href="admin-feedback.php"><img src="../assets/feedback.png" alt="Feedback Icon"> Feedback</a>
-            <a href="admin-external.php"><img src="../assets/external.png" alt="External Content Icon"> External Content</a>
+            <a href="admin-records.php"><img src="../assets/records.png" alt="Records Icon"> Personal Information</a>
+            <a href="admin-accounting.php"><img src="../assets/calculator.png" alt="Accounting Icon"> Accounting</a>x
+            <a href="admin-feedback.php"><img src="../assets/feedback.png" alt="Feedback Icon"> Community</a>
+            <a href="admin-external.php"><img src="../assets/external.png" alt="External Content Icon">Feedback</a>
         </div>
 
         <div class="content">
