@@ -26,6 +26,8 @@
             flex-direction: row;
             justify-content: space-between;
             padding: 10px;
+            padding-left: 0px;
+            padding-right: 0px;
         }
 
         .upperbox i {
@@ -101,12 +103,12 @@
 
     <body>
         <div class ="content-area">
-        <div class="upperbox">
-    <p>User Accounts</p>
-    <a href="admin-records.php">
-        <i class="fa-regular fa-square-caret-left"></i>
-    </a>
-</div>  
+            <div class="upperbox">
+                <p>Residence Information</p>
+                <a href="admin-records.php">
+                <i class="fa-solid fa-arrow-rotate-left"></i>
+                </a>
+            </div>  
 
             <div class="middlebox">
                 <table>

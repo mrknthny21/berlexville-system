@@ -18,8 +18,8 @@
         }
         .navbar{
 
-            height:75px;
-            width: 100%;
+            height:11vh;
+            width: 100vw;
             background-color: WHITE;
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
             display: flex;
@@ -109,6 +109,7 @@
         .login-button{
             margin:10px;
             margin-left: 50px;
+             text-decoration: none;
          
         }
 
@@ -123,10 +124,17 @@
             font-family: 'Poppins', sans-serif;
             font-size: 14px;
             border-radius: 50px;
-            text-decoration: none;
+           
          
         } 
         
+
+        .button p{
+            
+            text-decoration: none;
+         
+        }
+
 
     </style>
     <head>
@@ -162,12 +170,12 @@
 
 
                 </div>
-
                 <div class="login-button">
-                    <button> 
                     <a href="../login.php">
-                       <p> LOG IN  </p>
-                    </button>
+                        <button>
+                            <p>LOG IN</p>
+                        </button>
+                    </a>
                 </div>
 
 

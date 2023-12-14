@@ -174,7 +174,7 @@
         </div> 
 
         <div class="sidebar">
-            <a href="admin-landingpage.php"><img src="../assets/home.png" alt="Home Icon"> Home</a>
+        <i class="fa-solid fa-house"></i> <a href="admin-landingpage.php"> Home</a>
             <a href="admin-records.php"><img src="../assets/records.png" alt="Records Icon"> Personal Information</a>
             <a href="admin-accounting.php"><img src="../assets/calculator.png" alt="Accounting Icon"> Accounting</a>x
             <a href="admin-feedback.php"><img src="../assets/feedback.png" alt="Feedback Icon"> Community</a>

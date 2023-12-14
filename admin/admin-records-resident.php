@@ -99,11 +99,11 @@
     <body>
         <div class ="content-area">
         <div class="upperbox">
-    <p>User Accounts</p>
+    <p>Resident Information</p>
     <a href="admin-records.php">
         <i class="fa-regular fa-square-caret-left"></i>
     </a>
-</div>  
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 
             <div class="middlebox">
                 <table>

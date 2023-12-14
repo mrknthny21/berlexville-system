@@ -22,27 +22,41 @@
 
         .tab-box {
             display: flex;
+            flex-direction: column;
             align-items: center; /* Align items vertically in the center */
             border: 1px solid black;
             width: 20vw;
             height: 15vh;
-            margin: 2px;
+            margin: 10px;
+            margin-top: 0px;
             border-radius: 10px;
-            text-align: center;
+            text-align: below;
             transition: all 0.3s;
             justify-content: center;
             text-decoration: none; /* Remove the default link underline */
-        color: inherit;
+            color: inherit;
         }
 
         .tab-box i {
-            margin-right: 8px; /* Adjust as needed to create space between icon and text */
+            margin-right: 8px;
+            font-size: 30px; /* Adjust as needed to create space between icon and text */
         }
                 
         .tab-box:hover {
             background-color: #4F71CA; /* Change to your desired hover color */
         }
 
+        .icon-box{
+            display: flex;
+            flex-direction: row;
+        
+        }
+
+        .icon-box p{
+            font-weight: 900 ;
+            font-size: 25px;
+            margin-left:5px;
+        }
     </style>
 
     <head>
@@ -56,20 +70,48 @@
         <div class ="content-area">
 
         <a href="admin-records-user.php" class="tab-box">
-            <i class="fa-solid fa-square-poll-vertical"></i>
-            <p>Community Polls</p>
+            <div class ="icon-box">
+            <i class="fa-regular fa-circle-user"></i>
+            <p> 33 </p>
+             </div>
+            <p>Resident Population</p>
         </a>
 
         <a href="admin-records-residence.php" class="tab-box">
-            <i class="fa-regular fa-message"></i>
-            <p>Community Concerns</p>
+            <div class ="icon-box">
+            <i class="fa-solid fa-chart-line"></i>
+            <p> 10 </p>
+            </div>
+            <div>
+
+            <p>Current Total Expenses</p>
+            </div>
         </a>
 
         <a href="admin-records-resident.php" class="tab-box">
-            <i class="fa-regular fa-square-check"></i>
-            <p>Community Suggestion</p>
+            <div class="icon-box">
+                <i class="fa-regular fa-message"></i>
+                <p> 8 </p>
+            </div>
+             <p>Community Feedback</p>
         </a>
 
+        <div class="box">
+            <diV class="vertical">
+                <div class="box1">
+
+
+                </div>
+
+                <div class="box2">
+
+
+                </div>
+                
+            </div>
+
+            
+         </div>
         
 
             

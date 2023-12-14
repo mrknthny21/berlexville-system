@@ -25,7 +25,8 @@
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
             display: flex;
             justify-content: space-between;
-            z-index: 2;
+         
+            position: sticky;
         }
 
         .logobox{

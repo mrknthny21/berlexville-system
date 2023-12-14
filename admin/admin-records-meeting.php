@@ -114,13 +114,13 @@
                             <th>Meeting Transcript </th>
                             <th>Modify </th>
                         </tr>
-                    </thead>
+                    </thead>        
                     <tbody>
                         <tr>
                             <td>1</td>
                             <td>Reducing Noise Poluttion</td>
-                            <td>OCT 20, 2021 </td>
-                            <td>OCT 27, 2021</td>
+                            <td>Reducing-noice-pollution.pdf </td>
+                            <td>Reducing-noice-pollution.mp3</td>
                             <td>
                             <div class="modify">
                                 <i class="fa-regular fa-pen-to-square"></i>
