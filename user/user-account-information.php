@@ -17,7 +17,6 @@
             font-family: 'Poppins', sans-serif;
         }
 
-
         .navbar{
             height:10vh;
             width: 100vw;
@@ -102,7 +101,6 @@
             text-decoration: none;
         } 
    
-
         .sidebar {
             height: 100%;
             width: 16vw;
@@ -123,28 +121,86 @@
             align-items: center;
         }
 
-        
         .sidebar img {
             margin-top: 5px;
             width: 25px; /* Adjust the width as needed */
             height: auto; /* Maintain aspect ratio */
             margin-right: 10px; /* Add some space between image and text */
         }
+
         .sidebar a:hover {
             background-color: #eee; /* Set background color on hover */
         }
 
-        .content {
-            margin-left: 250px; /* Adjusted to make space for the sidebar */
-            padding: 20px; /* Optional: Add padding to content area */
+        .content-area {
+          height: auto;
+          width: 67vw;
+          margin-left: 25vw;
+          padding: 1vh;
+          justify-content:left;
+          display: flex;
+          flex-wrap: wrap; /* Add this line */
+          align-items: flex-start;
+      }
+
+      .tab-box {
+          display: flex;
+          align-items: center; /* Align items vertically in the center */
+          border: 1px solid black;
+          width: 30vw;
+          height: 15vh;
+          margin: 15px;
+          border-radius: 10px;
+          text-align: center;
+          justify-content: center;
+          text-decoration: none; /* Remove the default link underline */
+          color: black;
+      }
+
+      .tab-box i {
+          margin-right: 8px; /* Adjust as needed to create space between icon and text */
+      }
+
+      .upperbox {
+            border-bottom: 1px black solid;
+            width: 100vw;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 10px;
         }
+
+        .upperbox i {
+            font-size: 25px;
+        }
+
+        .tab-box {
+          border: 1px solid black;
+          width: 62vw;
+          height: 15vh;
+          margin: 15px;
+          border-radius: 10px;
+          justify-content: center;
+          text-decoration: none; /* Remove the default link underline */
+          color: black;
+      }
+
+      .tab-box2 {
+          border: 1px solid black;
+          width: 62vw;
+          height: 50vh;
+          margin: 15px;
+          border-radius: 10px;
+          justify-content: center;
+          text-decoration: none; /* Remove the default link underline */
+          color: black;
+      }
     </style>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-VCo2EszHFvR0cHJ7dQbSYzLgW5F/+xloqqDte0wC2L3CcvrHOhX8tRcBeSOFqRG+4uqm2nAeG7NbbJ2vKwL2hA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <title>Account Information</title>
     </head>
    <body>
         <div class="navbar">
@@ -174,15 +230,33 @@
         </div> 
 
         <div class="sidebar">
-        <i class="fa-solid fa-house"></i> <a href="admin-landingpage.php"> Home</a>
+            <a href="admin-landingpage.php"><img src="../assets/home.png" alt="Home Icon"> Home</a>
             <a href="admin-records.php"><img src="../assets/records.png" alt="Records Icon"> Personal Information</a>
-            <a href="admin-accounting.php"><img src="../assets/calculator.png" alt="Accounting Icon"> Accounting</a>x
+            <a href="admin-accounting.php"><img src="../assets/calculator.png" alt="Accounting Icon"> Accounting</a>
             <a href="admin-feedback.php"><img src="../assets/feedback.png" alt="Feedback Icon"> Community</a>
             <a href="admin-external.php"><img src="../assets/external.png" alt="External Content Icon">Feedback</a>
         </div>
 
+
         <div class="content">
-          
+
+        <div class ="content-area">
+
+        <div class="upperbox">
+            <p>Account Information</p>
+            <a href="user-personal-information.php">
+            <i class="fa-regular fa-square-caret-left"></i>
+        </a>
+        </div>
+
+        <a href="admin-records-user.php" class="tab-box">
+            <p></p>
+        </a>
+
+        
+        <a href="admin-records-residence.php" class="tab-box2">
+            <p></p>
+        </a>
         </div>
     </body>
 </html> 
