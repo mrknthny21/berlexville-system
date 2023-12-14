@@ -127,6 +127,7 @@ $conn->close();
             border: 1px solid #ccc;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             z-index: 1000;
+          
         }
 
         .popup-content {
@@ -153,10 +154,17 @@ $conn->close();
             border: 1px solid #ccc;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             z-index: 1000;
+            width: 20vw;
+            border-radius: 10px;
+
+        }
+
+        .form-popup button{
+            border-radius: 10px;
         }
 
         .form-container {
-            text-align: center;
+            text-align: left;
         }
 
         .form-container input {
@@ -212,7 +220,7 @@ $conn->close();
                             <th>Block</th>
                             <th>Lot</th>
                             <th>Password</th>
-                            <th>Role</th>
+                            <th>Modify</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -223,7 +231,12 @@ $conn->close();
                                 <td><?php echo $row['blk']; ?></td>
                                 <td><?php echo $row['lot']; ?></td>
                                 <td><?php echo $row['password']; ?></td>
-                                <td><?php echo $row['role']; ?></td>
+                                <td>
+                                    <div class="modify">
+                                    <i id="editIcon" class="fa-regular fa-pen-to-square"></i>
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </div>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -241,10 +254,35 @@ $conn->close();
         </div>
 
 
-
+   
         <div id="addForm" class="form-popup">
             <form action="admin-manage-user.php" method="POST" class="form-container" enctype="multipart/form-data">
                 <h2>Add Homeowner</h2>
+
+                <label for="block"><b>Block</b></label>
+                <input type="text" name="block" placeholder="Enter Block">
+
+                <label for="lot"><b>Lot</b></label>
+                <input type="text" placeholder="Enter lot of the house" name="lot" required>
+
+                <label for="name"><b>Account Owner</b></label>
+                <input type="text" placeholder="Enter Name" name="name" required>
+
+                <label for="homeownerID"><b>Homeowner ID</b></label>
+                <input type="text" placeholder="Enter homeowner ID" name="homeownerID" required>
+                
+                <label for="password"><b>Password</b></label>
+                <input type="text" placeholder="Enter password" name="password" required>
+
+                <button type="submit" class="fa-solid fa-plus" onclick="closeAddForm()">Add</button>
+                <button type="button" class="btn cancel" onclick="closeAddForm()">Cancel</button>
+            </form>
+        </div>
+        
+
+        <div id="editForm" class="form-popup">
+            <form action="admin-manage-user.php" method="POST" class="form-container" enctype="multipart/form-data">
+                <h2>Edit Homeowner</h2>
 
                 <label for="block"><b>Block</b></label>
                 <input type="text" name="block" placeholder="Enter Block">
@@ -261,11 +299,16 @@ $conn->close();
                 <label for="password"><b>Password</b></label>
                 <input type="text" placeholder="Enter password" name="password" required>
 
-                <button type="submit" class="fa-solid fa-plus" onclick="closeAddForm()">Add</button>
-                <button type="button" class="btn cancel" onclick="closeAddForm()">Cancel</button>
-            </form>
-        </div>
+                <!-- Add an additional field for identifying the homeowner being edited, for example, using a hidden input -->
+                <input type="hidden" name="editHomeownerID" value="123"> <!-- Replace '123' with the actual homeowner ID you want to edit -->
 
+                <button type="submit" class="fa-solid fa-pencil" onclick="closeEditForm()">Save Changes</button>
+                <button type="button" class="btn cancel" onclick="closeEditForm()">Cancel</button>
+            </form>
+
+
+
+</div>
     </body> 
 
     <script>
@@ -287,6 +330,27 @@ $conn->close();
     // Function to close the pop-up form
     function closeAddForm() {
         document.getElementById("addForm").style.display = "none";
+    }
+
+
+    // Get the icon element
+        var editIcon = document.getElementById('editIcon');
+
+        // Get the edit form element
+        var editForm = document.getElementById('editForm');
+
+        // Add an event listener to the icon for the click event
+        editIcon.addEventListener('click', function(event) {
+            // Prevent the default behavior of the icon
+            event.preventDefault();
+
+            // Show the edit form
+            editForm.style.display = 'block';
+        });
+
+            // Function to close the pop-up form
+    function closeEditForm() {
+        document.getElementById("editForm").style.display = "none";
     }
 </script>
 

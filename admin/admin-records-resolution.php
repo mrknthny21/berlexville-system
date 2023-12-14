@@ -122,10 +122,10 @@
                             <td>OCT 20, 2023 </td>
                             <td>OCT 27, 2023</td>
                             <td>
-                            <div class="modify">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                                <i class="fa-regular fa-trash-can"></i>
-                            </div>
+                                <div class="modify">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </div>
                             </td>
                         </tr>
                         <tr>
