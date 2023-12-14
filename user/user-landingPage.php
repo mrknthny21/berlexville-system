@@ -1,3 +1,1 @@
-<?php 
- include 'user-nav-sidebar.php';
-?>
+<?php include 'user-nav-sidebars.php'; ?>
