@@ -216,11 +216,11 @@
         </div> 
 
         <div class="sidebar">
-            <a href="admin-landingpage.php"><img src="../assets/home.png" alt="Home Icon"> Home</a>
-            <a href="admin-records.php"><img src="../assets/records.png" alt="Records Icon"> Personal Information</a>
-            <a href="admin-accounting.php"><img src="../assets/calculator.png" alt="Accounting Icon"> Accounting</a>
-            <a href="admin-feedback.php"><img src="../assets/feedback.png" alt="Feedback Icon"> Community</a>
-            <a href="admin-external.php"><img src="../assets/external.png" alt="External Content Icon">Feedback</a>
+        <a href="user-landingPage.php"><img src="../assets/home.png" alt="Home Icon"> Home</a>
+            <a href="user-personal-information.php"><img src="../assets/records.png" alt="Records Icon"> Personal Information</a>
+            <a href="user-payments.php"><img src="../assets/calculator.png" alt="Accounting Icon"> Accounting</a>
+            <a href="user-community.php"><img src="../assets/feedback.png" alt="Feedback Icon"> Community</a>
+            <a href="user-feedback.php"><img src="../assets/external.png" alt="External Content Icon">Feedback</a>
         </div>
 
 
