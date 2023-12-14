@@ -114,7 +114,7 @@
         .sidebar a {
             padding: 15px 20px;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 16px;
             color: #333; /* Set text color */
             display: block;
             transition: 0.3s;
