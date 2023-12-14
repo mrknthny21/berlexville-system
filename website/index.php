@@ -1,4 +1,7 @@
-<?php include 'website-navbar.php'; ?>  
+<?php include 'website-navbar.php';
+
+
+?>  
 <!DOCTYPE html>
 <html lang="en">
     <style>
@@ -148,24 +151,59 @@
     <div class ="content-area">
        
             <div class="cards">
-                <a href="admin-records-user.php" class="tab-box">
-                    <div class ="icon-box">
-                    <i class="fa-regular fa-circle-user"></i>
-                    <p> 78 </p>
-                    </div>
-                    <p>Resident Population</p>
-                </a>
+            <?php    
 
-                <a href="admin-records-residence.php" class="tab-box">
-                    <div class ="icon-box">
-                    <i class="fa-solid fa-house"></i>
-                    <p> 42 </p>
-                    </div>
-                    <div>
+            include '../db_connect.php';
 
-                    <p>Current Total Households</p>
-                    </div>
-                </a>
+          
+            $sql = "SELECT COUNT(*) AS resident_population FROM tbl_resident";
+            $result = $conn->query($sql);
+
+            if ($result) {
+                    // Fetch the result
+                    $row = $result->fetch_assoc();
+                    
+                    // Output the resident population
+                    $resident_population = $row['resident_population'];
+                    echo '<a href="admin-records-user.php" class="tab-box">';
+                    echo '<div class ="icon-box">';
+                    echo '<i class="fa-regular fa-circle-user"></i>';
+                    echo '<p>' . $resident_population . '</p>';
+                    echo '</div>';
+                    echo '<p>Resident Population</p>';
+                    echo '</a>';
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            ?>
+            
+            <?php
+
+            include '../db_connect.php';
+            // Query to count rows in the homeowners table
+            $sql = "SELECT COUNT(*) AS total_households FROM tbl_homeowners";
+            $result = $conn->query($sql);
+
+            if ($result) {
+                // Fetch the result
+                $row = $result->fetch_assoc();
+                
+                // Output the total households
+                $total_households = $row['total_households'];
+                echo '<a href="admin-records-residence.php" class="tab-box">';
+                echo '<div class ="icon-box">';
+                echo '<i class="fa-solid fa-house"></i>';
+                echo '<p>' . $total_households . '</p>';
+                echo '</div>';
+                echo '<div>';
+                echo '<p>Current Total Households</p>';
+                echo '</div>';
+                echo '</a>';
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+
+            ?>
 
                 <a href="admin-records-resident.php" class="tab-box">
                     <div class="icon-box">

@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 header("location: admin/admin-landingpage.php?id=$id");
                 exit();
             } elseif ($role == 'user') {
-                header("location: user/user-landingpage.php?id=$id");
+                header("location: user/user-landingPage.php?id=$id");
                 exit();
             }
         } else {

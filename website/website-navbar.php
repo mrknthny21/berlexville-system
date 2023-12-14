@@ -91,12 +91,12 @@
         display: flex;
         align-items: center;
         height: 100%;
-        margin-left: 570px;
+        margin-left: 550px;
        
         }
 
         .navlinks a {
-        margin-left: 50px; /* Add some spacing between the links */
+        margin-left: 40px; /* Add some spacing between the links */
         text-decoration: none;
         color: #333; /* Adjust the color as needed */
         }
@@ -120,7 +120,7 @@
             border: none;
             cursor: pointer;
             height: 40px;
-            width: 100px;
+            width: 100px;   
             font-family: 'Poppins', sans-serif;
             font-size: 14px;
             border-radius: 50px;
@@ -162,11 +162,11 @@
                  </div>
 
                  <div class= "navlinks">
-      
-                    <a href="index.php">Home</a>
-                    <a href="about.php">About</a>
-                    <a href="news.php">News</a>
-                    <a href="contacts.php">Contacts</a>
+        
+                        <a href="index.php">Home</a>
+                        <a href="about.php">About</a>
+                        <a href="news.php">Officers</a>
+                        <a href="contacts.php">Contacts</a>
 
 
                 </div>
