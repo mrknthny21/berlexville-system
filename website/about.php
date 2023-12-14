@@ -119,20 +119,21 @@
         }
 
         .mainbox2 {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    padding: 5px;
-    height: 38vh;
-    width: 90vw;
-    border: 1px black solid;
-    margin-left: auto; /* Center horizontally by using auto margins */
-    margin-right: auto;
-    margin-top: 5px;
-    border-radius: 10px;
-    justify-content: center;
-    background-color: #4F71CA;
-}
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            padding: 5px;
+            height: 38vh;
+            width: 90vw;
+            border: 1px black solid;
+            margin-left: auto; /* Center horizontally by using auto margins */
+            margin-right: auto;
+            margin-top: 5px;
+            border-radius: 10px;
+            justify-content: center;
+            background-color: #4F71CA;
+        }
+        
         .bod {
             width: 100%;
             text-align: center;
