@@ -326,33 +326,6 @@
                 </div>
         </div>
 
-            <div class="mainbox2">
-
-                    <div class="bod">
-                        <h3 class="textbod"> BOARD OF DIRECTORS </h3> 
-                    </div>
-                    
-                    <div class= "flashcard">
-                        <div class="pbox">
-                        </div>
-                        <div class="vpbox">
-                        </div>
-                        <div class="sbox">
-                        </div>
-                        <div class="tbox">  
-                        </div>
-                        <div class="abox">
-                        </div>
-                    </div>
-
-                    <div class="titles">
-                    <div class="pres"> President </div>
-                    <div class="Vpres"> Vice President </div>
-                    <div class="sec"> Secretary </div>
-                    <div class="tres"> Treasurer </div>
-                    <div class="aud"> Auditor </div>
-                    </div>
-                </div>
     </div>
        
        
