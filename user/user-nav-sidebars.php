@@ -114,7 +114,7 @@
         .sidebar a {
             padding: 15px 20px;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 17px;
             color: #333; /* Set text color */
             display: block;
             transition: 0.3s;
@@ -186,6 +186,38 @@
         <title>Personal Information</title>
     </head>
    <body>
-      
+        <div class="navbar">
+            <div class="logobox">
+                <div class="logo">
+                    <img src="../assets/logo.png" alt="Logo Description">
+                </div>
+
+                <div class="letters">
+                    <div class="title-berlex">
+                        <p>BERLEXVILLE</p>
+                    </div>   
+
+                    <div class="title-home">
+                        <p>HOMEOWNERS ASSOCIATION</p>
+                    </div>  
+                </div>
+
+                <div class="login-button">
+                    <a href="../login.php">
+                        <button>
+                            <p>LOG OUT</p>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div> 
+
+        <div class="sidebar">
+            <a href="user-landingPage.php"><img src="../assets/home.png" alt="Home Icon"> Home</a>
+            <a href="user-personal-information.php"><img src="../assets/records.png" alt="Records Icon"> Personal Information</a>
+            <a href="user-payments.php"><img src="../assets/calculator.png" alt="Accounting Icon"> Accounting</a>
+            <a href="user-community.php"><img src="../assets/feedback.png" alt="Feedback Icon"> Community</a>
+            <a href="user-feedback.php"><img src="../assets/external.png" alt="External Content Icon">Feedback</a>
+        </div>
     </body>
 </html> 

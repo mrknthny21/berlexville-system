@@ -3,24 +3,35 @@ include 'admin-nav-sidebars.php';
 // Include the database connection file
 include '../db_connect.php';
 
-// Fetch data from the database
-$sql = "SELECT account_Id, name, blk, lot, password, role FROM tbl_homeowners";
-$result = $conn->query($sql);
+$query = "SELECT * FROM tbl_homeowners";
 
-// Check for query execution errors
-if (!$result) {
-    die("Query failed: " . $conn->error);
-}
 
-// Fetch data if the query was successful
-$data = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
+$result = mysqli_query($conn, $query);
+
+$users = array(); // Initialize an empty array to store user details
+
+if ($result && mysqli_num_rows($result) > 0) {
+    while ($user = mysqli_fetch_assoc($result)) {
+        // Retrieve the individual values
+        $userId = $user['account_Id'];
+        $userName = $user['name'];
+        $userBlock = $user['blk'];
+        $userLot = $user['lot'];
+        $userPassword = $user['password'];
+        $userRole = $user['role'];
+
+        // Store the user details in the array
+        $users[] = array(
+            'userId' => $userId,
+            'userName' => $userName,
+            'userBlock' => $userBlock,
+            'userLot' => $userLot,
+            'userPassword' => $userPassword,
+            'userRole' => $userRole
+        );
     }
 }
-
-$conn->close();
+?>
 ?>
 
 
@@ -224,17 +235,18 @@ $conn->close();
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($data as $row): ?>
+                 
+                        <?php foreach ($users as $row): ?>
                             <tr>
-                                <td><?php echo $row['account_Id']; ?></td>
-                                <td><?php echo $row['name']; ?></td>
-                                <td><?php echo $row['blk']; ?></td>
-                                <td><?php echo $row['lot']; ?></td>
-                                <td><?php echo $row['password']; ?></td>
+                                <td><?php echo $row['userId']; ?></td>
+                                <td><?php echo $row['userName']; ?></td>
+                                <td><?php echo $row['userBlock']; ?></td>
+                                <td><?php echo $row['userLot']; ?></td>
+                                <td><?php echo $row['userPassword']; ?></td>
                                 <td>
                                     <div class="modify">
-                                    <i id="editIcon" class="fa-regular fa-pen-to-square"></i>
-                                        <i class="fa-regular fa-trash-can"></i>
+                                        <i id="editIcon" onclick="openEditForm(<?php echo $row['userId']; ?>)" userId="<?php echo $row['userId']; ?>" class="fa-regular fa-pen-to-square"></i>
+                                        <i class="fa-regular fa-trash-can" onclick="deleteUser(<?php echo $row['userId']; ?>)"></i>
                                     </div>
                                 </td>
                             </tr>
@@ -307,6 +319,12 @@ $conn->close();
             </form>
 
 
+          
+            <form id="deleteUserForm" action="admin-manage-user.php" method="post">
+                <input type="hidden" name="account_id" id="accountIDInput">
+                <input type="hidden" name="deleteUser" value="1">
+            </form>
+
 
 </div>
     </body> 
@@ -352,6 +370,17 @@ $conn->close();
     function closeEditForm() {
         document.getElementById("editForm").style.display = "none";
     }
+
+
+    function deleteUser(account_id) {
+    if (confirm("Are you sure you want to delete this user?")) {
+        document.getElementById('accountIDInput').value = account_id;
+        document.getElementById('deleteUserForm').submit();
+    }
+}
+
+
+
 </script>
 
 </html>
