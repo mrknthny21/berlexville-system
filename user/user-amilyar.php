@@ -147,23 +147,14 @@
           display: flex;
           align-items: center; /* Align items vertically in the center */
           border: 1px solid black;
-          width: 20vw;
-          height: 15vh;
+          width: 300vw;
+          height: 65vh;
           margin: 15px;
           border-radius: 10px;
           text-align: center;
-          transition: all 0.3s;
           justify-content: center;
           text-decoration: none; /* Remove the default link underline */
-          color: inherit;
-      }
-
-      .tab-box i {
-          margin-right: 8px; /* Adjust as needed to create space between icon and text */
-      }
-              
-      .tab-box:hover {
-          background-color: #4F71CA; /* Change to your desired hover color */
+          color: black;
       }
 
       .upperbox {
@@ -178,6 +169,17 @@
         .upperbox i {
             font-size: 25px;
         }
+        .eval_sheet button{
+    background-color: #6FBB76;
+    color: white;
+    width: 200px;
+    height: 50px;
+    font-family: 'Poppins';
+    margin-left: 425px;
+}
+.eval_sheet button:hover{
+    background-color: #008A0E;
+}
     </style>
     <head>
         <meta charset="UTF-8">
@@ -231,6 +233,16 @@
             <i class="fa-regular fa-square-caret-left"></i>
         </a>
         </div>
+
+        <a href="admin-records-user.php" class="tab-box">
+            <p></p>
+        </a>
+
+        <div class="eval_sheet">
+        <a href="amilyar-payment-concern.php">
+        <button type="submit" class="btn btn-primary">SUBMIT A CONCERN</button>
+        </div>
+
         </div>
     </body>
 </html> 

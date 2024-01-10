@@ -143,20 +143,6 @@
           align-items: flex-start;
       }
 
-      .tab-box {
-          display: flex;
-          align-items: center; /* Align items vertically in the center */
-          border: 1px solid black;
-          width: 300vw;
-          height: 65vh;
-          margin: 15px;
-          border-radius: 10px;
-          text-align: center;
-          justify-content: center;
-          text-decoration: none; /* Remove the default link underline */
-          color: black;
-      }
-
       .upperbox {
             border-bottom: 1px black solid;
             width: 100vw;
@@ -169,23 +155,60 @@
         .upperbox i {
             font-size: 25px;
         }
-        .eval_sheet button{
+
+.eval_sheet p{
+            width: 50vw;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 10px;
+}
+.eval_sheet textarea{
+    margin-left: 30px;
+    width: 1005px;
+    height: 150px;
+    font-family: 'Poppins';
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.eval_sheet button{
     background-color: #6FBB76;
     color: white;
     width: 200px;
     height: 50px;
     font-family: 'Poppins';
-    margin-left: 425px;
+    margin-left: 625px;
 }
 .eval_sheet button:hover{
     background-color: #008A0E;
 }
+.tab-box {
+          border: 1px solid black;
+          width: 62vw;
+          height: 15vh;
+          margin: 15px;
+          border-radius: 10px;
+          justify-content: center;
+          text-decoration: none; /* Remove the default link underline */
+          color: black;
+      }
+
+      .tab-box2 {
+          border: 1px solid black;
+          width: 62vw;
+          height: 50vh;
+          margin: 15px;
+          border-radius: 10px;
+          justify-content: center;
+          text-decoration: none; /* Remove the default link underline */
+          color: black;
+      }
     </style>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <title>Payments</title>
+        <title>Amilyar</title>
     </head>
    <body>
         <div class="navbar">
@@ -228,21 +251,20 @@
         <div class ="content-area">
 
         <div class="upperbox">
-            <p>Monthly Dues</p>
-            <a href="user-payments.php">
+            <p>Monthly Dues Payment Concern</p>
+            <a href="user-monthly-dues.php">
             <i class="fa-regular fa-square-caret-left"></i>
         </a>
         </div>
 
-        <a href="admin-records-user.php" class="tab-box">
-            <p></p>
-        </a>
-
         <div class="eval_sheet">
-        <a href="monthly-dues-payment-concern.php">
-        <button type="submit" class="btn btn-primary">SUBMIT A CONCERN</button>
+        <p>Please submit any payments related concern, we will provide a response as soon as possible!</p>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+        <input type="checkbox" id="" name="" value="">
+        <label for="">Submit anonymously</label>
+        <button type="submit" class="btn btn-primary">SUBMIT</button>
         </div>
-        
+
         </div>
     </body>
 </html> 

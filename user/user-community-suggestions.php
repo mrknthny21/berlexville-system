@@ -177,6 +177,7 @@
     width: 200px;
     height: 50px;
     font-family: 'Poppins';
+    margin-left: 625px;
 }
 .eval_sheet button:hover{
     background-color: #008A0E;
@@ -238,6 +239,8 @@
         <div class="eval_sheet">
         <p>Your opinion matters, please write your concern below</p>
         <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+        <input type="checkbox" id="" name="" value="">
+        <label for="">Submit anonymously</label>
         <button type="submit" class="btn btn-primary">SUBMIT</button>
         </div>
 
