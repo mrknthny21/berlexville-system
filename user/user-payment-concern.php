@@ -177,10 +177,32 @@
     width: 200px;
     height: 50px;
     font-family: 'Poppins';
+    margin-left: 625px;
 }
 .eval_sheet button:hover{
     background-color: #008A0E;
 }
+.tab-box {
+          border: 1px solid black;
+          width: 62vw;
+          height: 15vh;
+          margin: 15px;
+          border-radius: 10px;
+          justify-content: center;
+          text-decoration: none; /* Remove the default link underline */
+          color: black;
+      }
+
+      .tab-box2 {
+          border: 1px solid black;
+          width: 62vw;
+          height: 50vh;
+          margin: 15px;
+          border-radius: 10px;
+          justify-content: center;
+          text-decoration: none; /* Remove the default link underline */
+          color: black;
+      }
     </style>
     <head>
         <meta charset="UTF-8">
@@ -238,6 +260,8 @@
         <div class="eval_sheet">
         <p>Please write your concern below</p>
         <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+        <input type="checkbox" id="" name="" value="">
+        <label for="">Submit anonymously</label>
         <button type="submit" class="btn btn-primary">SUBMIT</button>
         </div>
 

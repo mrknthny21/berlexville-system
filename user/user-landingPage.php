@@ -12,10 +12,20 @@
     <style>
         /* Your custom CSS styles go here */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        .sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #333; /* Set text color */
+            display: block;
+            transition: 0.3s;
+            align-items: center;
         }
 
         .mainbox {

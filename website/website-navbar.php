@@ -23,7 +23,9 @@
             background-color: WHITE;
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
             display: flex;
-            justify-content: space-between;
+            
+            flex-direction: column;
+            flex-wrap: wrap;
            
           
            
@@ -76,7 +78,6 @@
         .title-home{
             height:20px;
             width: 220px;
-       
             margin-top: 1px;
             vertical-align: center;
         }
@@ -88,29 +89,27 @@
         }
 
         .navlinks {
-        display: flex;
-        align-items: center;
-        height: 100%;
-        margin-left: 550px;
-       
+            display: flex;
+            align-items: center;
+            height: 100%;
+            margin-left: 34vw;
         }
 
         .navlinks a {
-        margin-left: 40px; /* Add some spacing between the links */
-        text-decoration: none;
-        color: #333; /* Adjust the color as needed */
+            margin-left: 4vw; /* Add some spacing between the links */
+            text-decoration: none;
+            color: #333; /* Adjust the color as needed */
         }
 
         .navlinks a:hover {
-        color: #007bff; /* Change color on hover */
+            color: #007bff; /* Change color on hover */
         }   
 
         
         .login-button{
             margin:10px;
             margin-left: 50px;
-             text-decoration: none;
-         
+            text-decoration: none;
         }
 
         .login-button button{
@@ -124,17 +123,16 @@
             font-family: 'Poppins', sans-serif;
             font-size: 14px;
             border-radius: 50px;
-           
-         
         } 
         
 
         .button p{
-            
             text-decoration: none;
-         
         }
 
+        nav ul li a.active {
+            color: #4F71CA; 
+        }
 
     </style>
     <head>
@@ -163,10 +161,10 @@
 
                  <div class= "navlinks">
         
-                        <a href="index.php">Home</a>
-                        <a href="about.php">About</a>
-                        <a href="news.php">Officers</a>
-                        <a href="contacts.php">Contacts</a>
+                        <a href="index.php" class="<?php echo ($currentPage === 'index') ? 'active' : ''; ?>">Home</a>
+                        <a href="about.php" class="<?php echo ($currentPage === 'about') ? 'active' : ''; ?>">About</a>
+                        <a href="news.php" class="<?php echo ($currentPage === 'news') ? 'active' : ''; ?>">Officers</a>
+                        <a href="contacts.php" class="<?php echo ($currentPage === 'contacts') ? 'active' : ''; ?>">Contacts</a>
 
 
                 </div>
