@@ -1,4 +1,32 @@
-<?php include 'admin-nav-sidebars.php'; ?>
+<?php 
+include 'admin-nav-sidebars.php';
+include '../db_connect.php';
+
+// Initialize an array to store the resolution data
+$resolutions = array();
+
+$query = "SELECT * FROM tbl_resolution";
+$result = mysqli_query($conn, $query);
+
+// Retrieve resolution data from the database
+if ($result && mysqli_num_rows($result) > 0) {
+    while ($resolution = mysqli_fetch_assoc($result)) {
+        // Extract resolution details
+        $resolutionID = $resolution['resolutionID']; 
+        $title = $resolution['title'];
+        $dateCreated = $resolution['dateCreated'];
+        $dateImplemented = $resolution['dateImplemented'];
+
+        // Create an array with resolution details
+        $resolutions[] = array(
+            'resolutionID' => $resolutionID,
+            'title' => $title,
+            'dateCreated' => $dateCreated,
+            'dateImplemented' => $dateImplemented
+        );
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -85,6 +113,81 @@
             font-size: 20px;
         }
 
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+          
+        }
+
+        .popup-content {
+            text-align: center;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+      
+
+        .form-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            width: 20vw;
+            border-radius: 10px;
+
+        }
+
+        .form-popup button{
+            border-radius: 10px;
+        }
+
+        .form-container {
+            text-align: left;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        .form-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-container button.cancel {
+            background-color: #f44336;
+        }
+
+        .form-container label {
+            justify: left;
+        }
+
     </style>
 
     <head>
@@ -105,43 +208,157 @@
             </div>  
 
             <div class="middlebox">
-                <table>
-                    <thead>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Resolution ID</th>
+                        <th>Title</th>
+                        <th>Date Created</th>
+                        <th>Date Implemented</th>
+                        <th>Modify</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($resolutions as $row): ?>
                         <tr>
-                            <th>Number</th>
-                            <th>Title</th>
-                            <th>Date Created</th>
-                            <th>Date of Implementation </th>
-                            <th>Modify </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Penalty for unpaid Dues and Balances</td>
-                            <td>OCT 20, 2023 </td>
-                            <td>OCT 27, 2023</td>
+                            <td><?php echo $row['resolutionID']; ?></td>
+                            <td><?php echo $row['title']; ?></td>
+                            <td><?php echo $row['dateCreated']; ?></td>
+                            <td><?php echo $row['dateImplemented']; ?></td>
                             <td>
                                 <div class="modify">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                    <i class="fa-regular fa-trash-can"></i>
+                                    <i class="fa-regular fa-pen-to-square edit-icon" data-resolutionid="<?php echo $row['resolutionID']; ?>"></i>
+                                    <i class="fa-regular fa-trash-can" onclick="deleteResolution(<?php echo $row['resolutionID']; ?>)"></i>
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                         
-                        </tr>
-                        <!-- Add more rows as needed -->
-                    </tbody>
-                </table>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
             </div>
 
             <div class="bottombox">
-                <div class="add-button">
+                <div class="add-button" onclick="showAddForm()">
                     <i class="fa-solid fa-plus"></i>
                     <p>Add New Resolution</p>
                 </div>
              </div>
         </div>
+
+
+        <div id="addForm" class="form-popup">
+            <form action="admin-manage-resolution.php" method="POST" class="form-container" enctype="multipart/form-data">
+                <h2>Add Resolution</h2>
+
+                <label for="title"><b>Title</b></label>
+                <input type="text" name="title" placeholder="Enter Title" required>
+
+                <label for="dateCreated"><b>Date Created</b></label>
+                <input type="date" name="dateCreated" required>
+
+                <label for="dateImplemented"><b>Date Implemented</b></label>
+                <input type="date" name="dateImplemented" required>
+
+                <label for="officialCopy"><b>Official Copy</b></label>
+                <input type="file" name="officialCopy" accept=".pdf, .doc, .docx" required>
+
+                <button type="submit" name="addResolution" class="fa-solid fa-plus" onclick="closeAddForm()">Add</button>
+                <button type="button" class="btn cancel" onclick="closeAddForm()">Cancel</button>
+            </form>
+        </div>
+
+        <div id="editForm" class="form-popup">
+            <form action="admin-manage-resolution.php" method="POST" class="form-container" enctype="multipart/form-data">
+                <h2>Edit Resolution</h2>  
+
+                <label for="title"><b>Title</b></label>
+                <input type="text" name="title" placeholder="Enter Title" id="title" required>
+
+                <label for="dateCreated"><b>Date Created</b></label>
+                <input type="date" name="dateCreated" id="dateCreated" required>
+
+                <label for="dateImplemented"><b>Date Implemented</b></label>
+                <input type="date" name="dateImplemented" id="dateImplemented" required>
+
+                <label for="officialCopy"><b>Official Copy</b></label>
+                <input type="file" name="officialCopy" id="officialCopy" accept=".pdf, .doc, .docx">
+
+                <!-- Add an additional field for identifying the resolution being edited -->
+                <input type="hidden" name="editResolutionID" id="editResolutionID">
+
+                <button type="submit" name="editResolution" class="fa-solid fa-pencil">Save Changes</button>
+                <button type="button" class="btn cancel" onclick="closeEditForm()">Cancel</button>
+            </form>
+        </div>
+
+        <form id="deleteResolutionForm" action="admin-manage-resolution.php" method="post">
+            <input type="hidden" name="resolutionID" id="resolutionIDInput">
+            <input type="hidden" name="deleteResolution" value="1">
+        </form>
+
+        <script>
+            // Function to show the add form
+            function showAddForm() {
+                document.getElementById("addForm").style.display = "block";
+            }
+
+            // Function to close the add form
+            function closeAddForm() {
+                document.getElementById("addForm").style.display = "none";
+            }
+
+            // Assuming you have edit icons with a class 'edit-icon'
+            var editIcons = document.getElementsByClassName('edit-icon');
+
+            // Add event listeners to each "Edit" icon
+            Array.from(editIcons).forEach(function (editIcon) {
+                editIcon.addEventListener('click', function (event) {
+                    var resolutionID = event.target.getAttribute('data-resolutionid');
+                    openEditForm(resolutionID);
+                });
+            });
+
+            // Function to open the edit form
+            function openEditForm(resolutionID) {
+                // Assuming $resolutions is a PHP array containing resolution details
+                var resolutions = <?php echo json_encode($resolutions); ?>;
+                var resolution = resolutions.find(function (r) {
+                    return r.resolutionID == resolutionID;
+                });
+
+                if (resolution) {
+                    document.getElementById("title").value = resolution.title;
+                    document.getElementById("dateCreated").value = resolution.dateCreated;
+                    document.getElementById("dateImplemented").value = resolution.dateImplemented;
+
+                    // Set the resolution ID value in the hidden field
+                    document.getElementById("editResolutionID").value = resolution.resolutionID;
+
+                    // Show the edit form
+                    document.getElementById("editForm").style.display = "block";
+                } else {
+                    console.log("Resolution not found for ID: " + resolutionID);
+                }
+            }
+
+            // Function to close the edit form
+            function closeEditForm() {
+                // Hide the edit form
+                document.getElementById("editForm").style.display = "none";
+            }
+
+            // Function to delete a resolution
+            function deleteResolution(resolutionID) {
+                if (confirm("Are you sure you want to delete this resolution?")) {
+                    // Set the resolution ID value in the hidden input
+                    document.getElementById('resolutionIDInput').value = resolutionID;
+
+                    // Submit the form
+                    document.getElementById('deleteResolutionForm').submit();
+                }
+            }
+        </script>
+
+
     </body>
 </html>

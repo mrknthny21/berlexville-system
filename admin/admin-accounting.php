@@ -55,7 +55,7 @@
 
         <div class ="content-area">
 
-        <a href="admin-records-user.php" class="tab-box">
+        <a href="admin-accounting-monthly.php" class="tab-box">
             <i class="fa-solid fa-calendar-day"></i>
             <p>Monthly Due</p>
         </a>

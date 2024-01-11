@@ -57,11 +57,7 @@
         </a>
 
         
-        <a href="admin-records-residence.php" class="tab-box">
-            <i class="fa-solid fa-house"></i>
-            <p>Residence Information</p>
-        </a>
-
+       
         <a href="admin-records-resident.php" class="tab-box">
             <i class="fa-solid fa-list-ol"></i>
             <p>Resident Information</p>

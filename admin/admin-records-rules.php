@@ -1,5 +1,29 @@
-<?php include 'admin-nav-sidebars.php'; ?>
+<?php
+include 'admin-nav-sidebars.php';
+include '../db_connect.php';
 
+$rules = array();
+
+$query = "SELECT * FROM tbl_rules"; 
+$result = mysqli_query($conn, $query);
+
+if ($result && mysqli_num_rows($result) > 0) {
+    while ($rule = mysqli_fetch_assoc($result)) {
+        $ruleID = $rule['ruleID'];
+        $title = $rule['title'];
+        $dateCreated = $rule['dateCreated'];
+        $dateImplemented = $rule['dateImplemented'];
+
+        $rules[] = array(
+            'ruleID' => $ruleID,
+            'title' => $title,
+            'dateCreated' => $dateCreated,
+            'dateImplemented' => $dateImplemented
+        );
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
     <style>
@@ -85,6 +109,81 @@
             font-size: 20px;
         }
 
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+          
+        }
+
+        .popup-content {
+            text-align: center;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+      
+
+        .form-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            width: 20vw;
+            border-radius: 10px;
+
+        }
+
+        .form-popup button{
+            border-radius: 10px;
+        }
+
+        .form-container {
+            text-align: left;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        .form-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-container button.cancel {
+            background-color: #f44336;
+        }
+
+        .form-container label {
+            justify: left;
+        }
+
     </style>
 
     <head>
@@ -105,43 +204,166 @@
             </div>  
 
             <div class="middlebox">
-                <table>
-                    <thead>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rule ID</th>
+                        <th>Title</th>
+                        <th>Date Created</th>
+                        <th>Date Implemented</th>
+                        <th>Modify</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($rules as $row): ?>
                         <tr>
-                            <th>Number</th>
-                            <th>Title</th>
-                            <th>Date Created</th>
-                            <th>Date of Implementation </th>
-                            <th>Modify </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Reducing Noise Poluttion</td>
-                            <td>OCT 20, 2021 </td>
-                            <td>OCT 27, 2021</td>
+                            <td><?php echo $row['ruleID']; ?></td>
+                            <td><?php echo $row['title']; ?></td>
+                            <td><?php echo $row['dateCreated']; ?></td>
+                            <td><?php echo $row['dateImplemented']; ?></td>
                             <td>
-                            <div class="modify">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                                <i class="fa-regular fa-trash-can"></i>
-                            </div>
+                                <div class="modify">
+                                    <i class="fa-regular fa-pen-to-square edit-icon" data-ruleid="<?php echo $row['ruleID']; ?>"></i>
+                                    <i class="fa-regular fa-trash-can" onclick="deleteRule(<?php echo $row['ruleID']; ?>)"></i>
+                                </div>
                             </td>
                         </tr>
-                        <tr>
-                         
-                        </tr>
-                        <!-- Add more rows as needed -->
-                    </tbody>
-                </table>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
             </div>
 
             <div class="bottombox">
-                <div class="add-button">
+                <div class="add-button" onclick="showAddForm()">
                     <i class="fa-solid fa-plus"></i>
                     <p>Add New Rules</p>
                 </div>
              </div>
+
+             <div id="addForm" class="form-popup">
+                <form action="admin-manage-rule.php" method="POST" class="form-container" enctype="multipart/form-data">
+                    <h2>Add Rule</h2>
+
+                    <label for="ruleID"><b>Rule ID</b></label>
+                    <input type="text" name="ruleID" placeholder="Enter Rule ID" required>
+
+                    <label for="title"><b>Title</b></label>
+                    <input type="text" name="title" placeholder="Enter Title" required>
+   
+                    <label for="dateCreated"><b>Date Created</b></label>
+                    <input type="date" name="dateCreated" required>
+
+                    <label for="dateImplemented"><b>Date Implemented</b></label>
+                    <input type="date" name="dateImplemented" required>
+
+                    <label for="officialCopy"><b>Official Copy</b></label>
+                    <input type="file" name="officialCopy" accept=".pdf, .doc, .docx" required>
+
+                    <button type="submit" name="addRule" class="fa-solid fa-plus" onclick="closeAddForm()">Add</button>
+                    <button type="button" class="btn cancel" onclick="closeAddForm()">Cancel</button>
+                </form>
+            </div>
+
+
+            <div id="editForm" class="form-popup">
+                <form action="admin-manage-rule.php" method="POST" class="form-container" enctype="multipart/form-data">
+                    <h2>Edit Rule</h2>  
+
+                    <label for="ruleID"><b>Rule ID</b></label>
+                    <input type="text" name="ruleID" id="ruleID" placeholder="Enter Rule ID" required>
+
+
+                    <label for="title"><b>Title</b></label>
+                    <input type="text" name="title" placeholder="Enter Title" id="title" required>
+
+                    <label for="dateCreated"><b>Date Created</b></label>
+                    <input type="date" name="dateCreated" id="dateCreated" required>
+
+                    <label for="dateImplemented"><b>Date Implemented</b></label>
+                    <input type="date" name="dateImplemented" id="dateImplemented" required>
+
+                    <label for="officialCopy"><b>Official Copy</b></label>
+                    <input type="file" name="officialCopy" id="officialCopy" accept=".pdf, .doc, .docx">
+
+                    <!-- Add an additional field for identifying the rule being edited -->
+                    <input type="hidden" name="editRuleID" id="editRuleID">
+
+                    <button type="submit" name="editRule" class="fa-solid fa-pencil">Save Changes</button>
+                    <button type="button" class="btn cancel" onclick="closeEditForm()">Cancel</button>
+                </form>
+            </div>
+
+            <form id="deleteRuleForm" action="admin-manage-rule.php" method="post">
+                <input type="hidden" name="ruleID" id="ruleIDInput">
+                <input type="hidden" name="deleteRule" value="1">
+            </form>
+
         </div>
+
+
+        <script>
+    // Function to show the add form
+    function showAddForm() {
+        document.getElementById("addForm").style.display = "block";
+    }
+
+    // Function to close the add form
+    function closeAddForm() {
+        document.getElementById("addForm").style.display = "none";
+    }
+
+    // Assuming you have edit icons with a class 'edit-icon'
+    var editIcons = document.getElementsByClassName('edit-icon');
+
+    // Add event listeners to each "Edit" icon
+    Array.from(editIcons).forEach(function (editIcon) {
+        editIcon.addEventListener('click', function (event) {
+            var ruleID = event.target.getAttribute('data-ruleid');
+            openEditForm(ruleID);
+        });
+    });
+
+    // Function to open the edit form
+    function openEditForm(ruleID) {
+        // Assuming $rules is a PHP array containing rule details
+        var rules = <?php echo json_encode($rules); ?>;
+        var rule = rules.find(function (r) {
+            return r.ruleID === ruleID;
+        });
+
+        if (rule) {
+            document.getElementById("ruleID").value = rule.ruleID;
+            document.getElementById("title").value = rule.title;
+            document.getElementById("dateCreated").value = rule.dateCreated;
+            document.getElementById("dateImplemented").value = rule.dateImplemented;
+
+            // Set the rule ID value in the hidden field
+            document.getElementById("editRuleID").value = rule.ruleID;
+
+            // Show the edit form
+            document.getElementById("editForm").style.display = "block";
+        } else {
+            console.log("Rule not found for ID: " + ruleID);
+        }
+    }
+
+    // Function to close the edit form
+    function closeEditForm() {
+        // Hide the edit form
+        document.getElementById("editForm").style.display = "none";
+    }
+
+    // Function to delete a rule
+    function deleteRule(ruleID) {
+        if (confirm("Are you sure you want to delete this rule?")) {
+            // Set the rule ID value in the hidden input
+            document.getElementById('ruleIDInput').value = ruleID;
+
+            // Submit the form
+            document.getElementById('deleteRuleForm').submit();
+        }
+    }
+</script>
+
     </body>
 </html>

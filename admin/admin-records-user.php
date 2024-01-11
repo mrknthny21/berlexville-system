@@ -1,26 +1,23 @@
 <?php
 include 'admin-nav-sidebars.php';
-// Include the database connection file
 include '../db_connect.php';
+// Initialize $userData array
 
+// Continue with your existing PHP code for fetching the list of users
 $query = "SELECT * FROM tbl_homeowners";
-
-
 $result = mysqli_query($conn, $query);
 
-$users = array(); // Initialize an empty array to store user details
+$users = array();
 
 if ($result && mysqli_num_rows($result) > 0) {
     while ($user = mysqli_fetch_assoc($result)) {
-        // Retrieve the individual values
-        $userId = $user['account_Id'];
+        $userId = $user['accountID'];
         $userName = $user['name'];
         $userBlock = $user['blk'];
         $userLot = $user['lot'];
         $userPassword = $user['password'];
         $userRole = $user['role'];
 
-        // Store the user details in the array
         $users[] = array(
             'userId' => $userId,
             'userName' => $userName,
@@ -31,8 +28,12 @@ if ($result && mysqli_num_rows($result) > 0) {
         );
     }
 }
+
+
+
+
 ?>
-?>
+
 
 
 
@@ -245,8 +246,8 @@ if ($result && mysqli_num_rows($result) > 0) {
                                 <td><?php echo $row['userPassword']; ?></td>
                                 <td>
                                     <div class="modify">
-                                        <i id="editIcon" onclick="openEditForm(<?php echo $row['userId']; ?>)" userId="<?php echo $row['userId']; ?>" class="fa-regular fa-pen-to-square"></i>
-                                        <i class="fa-regular fa-trash-can" onclick="deleteUser(<?php echo $row['userId']; ?>)"></i>
+                                    <i class="fa-regular fa-pen-to-square edit-icon" data-userid="<?php echo $row['userId']; ?>"></i>
+                                        <i class="fa-regular fa-trash-can" onclick="deleteResident(<?php echo $row['userId']; ?>)"></i>
                                     </div>
                                 </td>
                             </tr>
@@ -271,6 +272,9 @@ if ($result && mysqli_num_rows($result) > 0) {
             <form action="admin-manage-user.php" method="POST" class="form-container" enctype="multipart/form-data">
                 <h2>Add Homeowner</h2>
 
+                <label for="homeownerID"><b>Homeowner ID</b></label>
+                <input type="text" placeholder="Enter homeowner ID" name="homeownerID" required>
+
                 <label for="block"><b>Block</b></label>
                 <input type="text" name="block" placeholder="Enter Block">
 
@@ -280,50 +284,56 @@ if ($result && mysqli_num_rows($result) > 0) {
                 <label for="name"><b>Account Owner</b></label>
                 <input type="text" placeholder="Enter Name" name="name" required>
 
-                <label for="homeownerID"><b>Homeowner ID</b></label>
-                <input type="text" placeholder="Enter homeowner ID" name="homeownerID" required>
-                
                 <label for="password"><b>Password</b></label>
                 <input type="text" placeholder="Enter password" name="password" required>
 
-                <button type="submit" class="fa-solid fa-plus" onclick="closeAddForm()">Add</button>
+                <!-- Add the role input field -->
+                <label for="role"><b>Role</b></label>
+                <input type="text" placeholder="Enter Role" name="role" required>
+
+                <button type="submit" name="addUser" class="fa-solid fa-plus" onclick="closeAddForm()">Add</button>
                 <button type="button" class="btn cancel" onclick="closeAddForm()">Cancel</button>
             </form>
         </div>
-        
+    
 
-        <div id="editForm" class="form-popup">
-            <form action="admin-manage-user.php" method="POST" class="form-container" enctype="multipart/form-data">
-                <h2>Edit Homeowner</h2>
+       <!-- HTML code for the form -->
+<div id="editForm" class="form-popup">
+    <form action="admin-manage-user.php" method="POST" class="form-container" enctype="multipart/form-data">
+        <h2>Edit Homeowner</h2>
 
-                <label for="block"><b>Block</b></label>
-                <input type="text" name="block" placeholder="Enter Block">
+        <label for="homeownerID"><b>Homeowner ID</b></label>
+        <input type="text" placeholder="Enter Homeowner ID" name="homeownerID" id="homeownerID" required>
 
-                <label for="lot"><b>Lot</b></label>
-                <input type="text" placeholder="Enter lot of the house" name="lot" required>
+        <label for="homeownerName"><b>Homeowner Name</b></label>
+        <input type="text" placeholder="Enter Homeowner Name" name="userName" id="homeownerName" required>
 
-                <label for="name"><b>Account Owner</b></label>
-                <input type="text" placeholder="Enter Name" name="name" required>
+        <label for="blk"><b>Block</b></label>
+        <input type="text" placeholder="Enter Block" name="userBlock" id="blk">
 
-                <label for="homeownerID"><b>Homeowner ID</b></label>
-                <input type="text" placeholder="Enter homeowner ID" name="homeownerID" required>
+        <label for="lot"><b>Lot</b></label>
+        <input type="text" placeholder="Enter Lot" name="userLot" id="lot">
 
-                <label for="password"><b>Password</b></label>
-                <input type="text" placeholder="Enter password" name="password" required>
+        <label for="password"><b>Password</b></label>
+        <input type="text" placeholder="Enter Password" name="userPassword" id="password" required>
 
-                <!-- Add an additional field for identifying the homeowner being edited, for example, using a hidden input -->
-                <input type="hidden" name="editHomeownerID" value="123"> <!-- Replace '123' with the actual homeowner ID you want to edit -->
+        <!-- Add the role input field -->
+        <label for="role"><b>Role</b></label>
+        <input type="text" placeholder="Enter Role"  name="userRole"  id="role" required>
 
-                <button type="submit" class="fa-solid fa-pencil" onclick="closeEditForm()">Save Changes</button>
-                <button type="button" class="btn cancel" onclick="closeEditForm()">Cancel</button>
-            </form>
+        <br> <br>
+        <input type="hidden" name="editHomeownerID" id="editHomeownerID">
 
+        <button type="submit" class="btn" name="updateHomeowner">Update</button>
+        <button type="button" class="btn cancel" onclick="closeEditForm()">Cancel</button>
+    </form>
+</div>
 
           
-            <form id="deleteUserForm" action="admin-manage-user.php" method="post">
-                <input type="hidden" name="account_id" id="accountIDInput">
-                <input type="hidden" name="deleteUser" value="1">
-            </form>
+        <form id="deleteUserForm" action="admin-manage-user.php" method="post">
+            <input type="hidden" name="accountID" id="accountIDInput" value="">
+            <input type="hidden" name="deleteResident" value="1">
+        </form>
 
 
 </div>
@@ -351,33 +361,67 @@ if ($result && mysqli_num_rows($result) > 0) {
     }
 
 
-    // Get the icon element
-        var editIcon = document.getElementById('editIcon');
 
-        // Get the edit form element
-        var editForm = document.getElementById('editForm');
 
-        // Add an event listener to the icon for the click event
-        editIcon.addEventListener('click', function(event) {
-            // Prevent the default behavior of the icon
-            event.preventDefault();
 
-            // Show the edit form
-            editForm.style.display = 'block';
-        });
 
-            // Function to close the pop-up form
-    function closeEditForm() {
-        document.getElementById("editForm").style.display = "none";
+// Assuming you have edit icons with a class 'edit-icon'
+var editIcons = document.getElementsByClassName('edit-icon');
+
+// Add event listeners to each "Edit" icon
+Array.from(editIcons).forEach(function (editIcon) {
+
+    editIcon.addEventListener('click', function (event) {
+        var userId = event.target.getAttribute('data-userid');
+        openEditForm(userId);
+    });
+});
+
+function openEditForm(userId) {
+    // Assuming $users is a PHP array containing homeowner details
+    var users = <?php echo json_encode($users); ?>;
+    var user = users.find(function (homeowner) {
+        return homeowner.userId == userId;
+    });
+
+    if (user) {
+        document.getElementById("homeownerID").value = user.userId;
+        document.getElementById("homeownerName").value = user.userName;
+        document.getElementById("blk").value = user.userBlock;
+        document.getElementById("lot").value = user.userLot;
+        document.getElementById("role").value = user.userRole;
+        console.log("Password input element:", document.getElementById("password"));
+
+         // Set the resolution ID value in the hidden field
+         document.getElementById("editHomeownerID").value = user.userId;
+
+        // Set the password value
+        document.getElementById("password").value = user.userPassword;
+
+        document.getElementById("password").value = user.userPassword;
+
+        // Show the edit form
+        document.getElementById("editForm").style.display = "block";
+    } else {
+        console.log("User not found for ID: " + userId);
     }
+}
+
+    function closeEditForm() {
+        // Hide the edit form
+        document.getElementById("editForm").style.display = "none";
+        }
+
+      
 
 
-    function deleteUser(account_id) {
+        function deleteResident(userId) {
     if (confirm("Are you sure you want to delete this user?")) {
-        document.getElementById('accountIDInput').value = account_id;
+        document.getElementById('accountIDInput').value = userId;
         document.getElementById('deleteUserForm').submit();
     }
 }
+
 
 
 

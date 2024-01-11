@@ -8,9 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $username = $_POST['id'];
         $password = $_POST['password'];
 
-        $Result = mysqli_query($conn, "SELECT account_id, password, 'admin' as role FROM tbl_admin WHERE account_id ='$username' AND password='$password'
+        $Result = mysqli_query($conn, "SELECT accountID, password, 'admin' as role FROM tbl_admin WHERE accountID ='$username' AND password='$password'
 		UNION
-		SELECT account_id, password, 'user' as role FROM tbl_homeowners WHERE account_id ='$username' AND password='$password'");
+		SELECT accountID, password, 'user' as role FROM tbl_homeowners WHERE accountID ='$username' AND password='$password'");
 
         if (!$Result) {
             // Query execution failed
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($matchedRows > 0) {
             $row = mysqli_fetch_assoc($Result);
-            $id = $row['account_id'];
+            $id = $row['accountID'];
             $role = $row['role'];
 
             $_SESSION['name'] = $username;
