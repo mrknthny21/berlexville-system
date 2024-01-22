@@ -60,12 +60,12 @@
             <p>Monthly Due</p>
         </a>
 
-        <a href="admin-records-residence.php" class="tab-box">
+        <a href="admin-accounting-amilyar.php" class="tab-box">
             <i class="fa-regular fa-calendar-check"></i>
             <p>Amilyar</p>
         </a>
 
-        <a href="admin-records-resident.php" class="tab-box">
+        <a href="admin-accounting-expenses.php" class="tab-box">
             <i class="fa-solid fa-chart-pie"></i>
             <p>Expenses</p>
         </a>

@@ -26,7 +26,7 @@
             display: flex;
             justify-content: space-between;
          
-            position: sticky;
+            position: relative;
         }
 
         .logobox{

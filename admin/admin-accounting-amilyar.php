@@ -7,44 +7,28 @@ include '../db_connect.php';
 $yearQuery = "SELECT yearID, year FROM tbl_year";
 $yearResult = mysqli_query($conn, $yearQuery);
 
-// Check for errors in the query execution
 if (!$yearResult) {
     die('Error in the query: ' . mysqli_error($conn));
 }
 
 $years = mysqli_fetch_all($yearResult, MYSQLI_ASSOC);
 
-// Fetch month data from the database
-$monthQuery = "SELECT monthID, month FROM tbl_months";
-$monthResult = mysqli_query($conn, $monthQuery);
-
-// Check for errors in the query execution
-if (!$monthResult) {
-    die('Error in the query: ' . mysqli_error($conn));
-}
-
-$months = mysqli_fetch_all($monthResult, MYSQLI_ASSOC);
-
-// Initialize an array to store the homeowner monthly data
 $homeownerMonthlyData = array();
 
-// Replace the conditions with your dynamic year and month selection
-$selectedYear = $_GET['selectedYear'] ?? null; // Assuming you are passing selectedYear from your frontend
-$selectedMonth = $_GET['selectedMonth'] ?? null; // Assuming you are passing selectedMonth from your frontend
-// Check if both year and month are selected
+$selectedYear = $_GET['selectedYear'] ?? null; 
+$selectedMonth = $_GET['selectedMonth'] ?? null; 
 
 if ($selectedYear !== null && $selectedMonth !== null) {
+    
     $query = "SELECT h.blk, h.lot, h.name AS owner, m.dueID, m.amount, m.status
               FROM tbl_homeowners h
-              LEFT JOIN tbl_monthly m ON h.accountID = m.accountID
+              LEFT JOIN tbl_amilyar m ON h.accountID = m.accountID
               WHERE m.year = $selectedYear AND m.month = '$selectedMonth'";
 
     $result = mysqli_query($conn, $query);
 
-    // Retrieve homeowner monthly data from the database
     if ($result && mysqli_num_rows($result) > 0) {
         while ($data = mysqli_fetch_assoc($result)) {
-            // Extract data details
             $blk = $data['blk'];
             $lot = $data['lot'];
             $owner = $data['owner'];
@@ -52,24 +36,23 @@ if ($selectedYear !== null && $selectedMonth !== null) {
             $status = $data['status'];
             $dueID = $data['dueID'];
 
-            // Create an array with data details
             $homeownerMonthlyData[] = array(
                 'blk' => $blk,
                 'lot' => $lot,
                 'owner' => $owner,
                 'amount' => $amount,
                 'status' => $status,
-                'dueID' => $dueID,  // Add the 'dueID' to the array
+                'dueID' => $dueID,  
             );
         }
     } else {
-        
+        // Handle case where no data is found for the selected year and month
     }
 }
 
-// Close the database connection
 mysqli_close($conn);
 ?>
+
 
 
 
@@ -289,10 +272,10 @@ mysqli_close($conn);
             display: flex;
             flex-direction: row;
         }
+
         .year{
             display: flex;
             flex-direction: row;
-            margin-left: 3vw;
         }
 
         .popup {
@@ -388,7 +371,7 @@ mysqli_close($conn);
     <body>
         <div class ="content-area">
             <div class="upperbox">
-                <p>Monthly Dues</p>
+                <p>Amilyar</p>
                 <a href="admin-accounting.php">
                     <i class="fa-regular fa-square-caret-left"></i>
                 </a>
@@ -400,15 +383,7 @@ mysqli_close($conn);
 
             <div class="title" >      
                 <div class="dropdown">
-                    <div class="month">
-                        <p>Month of  </p>
-                        <select name='month' id="monthDropdown" onchange="updateTable()">
-                            <?php foreach ($months as $month): ?>
-                                <option value="<?php echo $month['monthID']; ?>"><?php echo $month['month']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
+                
                     <div class="year">
                         <p>Year of  </p>
                         <select name='year' id="yearDropdown" onchange="updateTable()">
@@ -423,7 +398,7 @@ mysqli_close($conn);
                 <table id="monthlyTable">
                     <thead>
                         <tr>
-                            <th>DueID</th>
+                           
                             <th>Block</th>
                             <th>Lot</th>
                             <th>Owner</th>
@@ -435,7 +410,7 @@ mysqli_close($conn);
                     <tbody>
                         <?php foreach ($homeownerMonthlyData as $row): ?>
                             <tr>
-                                <td><?php echo $row['dueID']; ?></td>
+                               
                                 <td><?php echo $row['blk']; ?></td>
                                 <td><?php echo $row['lot']; ?></td>
                                 <td><?php echo $row['owner']; ?></td>
@@ -443,7 +418,7 @@ mysqli_close($conn);
                                 <td><?php echo isset($row['status']) ? $row['status'] : 'Unpaid'; ?></td>
                                 <td>
                                 <div class="modify">
-                                <i class="fa-regular fa-pen-to-square edit-icon" data-dueid="<?php echo $row['dueID']; ?>"></i>
+                                <i class="fa-regular fa-pen-to-square edit-icon" data-amilyarID="<?php echo $row['amilyarID']; ?>"></i>
                                 </div>
                             </td>
                             </tr>
@@ -455,62 +430,63 @@ mysqli_close($conn);
 
 
 
+            <div id="editForm" class="form-popup">
+                <form action="admin-manage-amilyar.php" method="POST" class="form-container" enctype="multipart/form-data">
+                    <h2>Edit Payment Status</h2>
 
-        <div id="editForm" class="form-popup">
-            <form action="admin-manage-duePayment.php" method="POST" class="form-container" enctype="multipart/form-data">
-                <h2>Edit Payment Status</h2>
+                    <!-- Use amilyarID instead of dueID -->
+                    <input type="hidden" name="amilyarID" id="amilyarID">
 
-                <input type="hidden" name="dueID" id="dueID">
+                    <label for="paymentStatus"><b>Payment Status</b></label>
+                    <select name="paymentStatus" id="paymentStatus" required>
+                        <option value="Unpaid" selected>Unpaid</option>
+                        <option value="Exempted">Exempted</option>
+                        <option value="Paid">Paid</option>
+                    </select>
 
-                <label for="paymentStatus"><b>Payment Status</b></label>
-                <select name="paymentStatus" id="paymentStatus" required>
-                    <option value="Unpaid" selected>Unpaid</option>
-                    <option value="Exempted">Exempted</option>
-                    <option value="Paid">Paid</option>
-                </select>
-
-                <button type="submit" name="editPaymentStatus" id="editPaymentStatus "class="fa-solid fa-pencil">Save Changes</button>
-                <button type="button" class="btn cancel" onclick="closeEditForm()">Cancel</button>
-            </form>
-        </div>
+                    <button type="submit" name="editPaymentStatus" id="editPaymentStatus" class="fa-solid fa-pencil">Save Changes</button>
+                    <button type="button" class="btn cancel" onclick="closeEditForm()">Cancel</button>
+                </form>
+            </div>
 
     <script>
 
-        document.addEventListener('DOMContentLoaded', function () {
-                updateTable();
-            });
+document.addEventListener('DOMContentLoaded', function () {
+    updateTable();
+});
 
+console.log('Script is running.');
 
-            console.log('Script is running.');
+function updateTable() {
+    // Get the selected year value
+    var selectedYear = document.getElementById('yearDropdown').value;
 
+    // Make an AJAX request to fetch filtered data
+    fetch(`fetch-filtered-data-year.php?selectedYear=${selectedYear}`)
+        .then(response => response.json())
+        .then(filteredData => {
+            // Directly update the table with the filtered data
+            var tableBody = document.getElementById('monthlyTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear existing rows
 
-         function updateTable() {
-            // Get the selected month and year values
-            var selectedMonth = document.getElementById('monthDropdown').value;
-            var selectedYear = document.getElementById('yearDropdown').value;
+            // Iterate over the filtered data and append rows to the table
+           // Iterate over the filtered data and append rows to the table
+                filteredData.forEach(row => {
+                    var newRow = tableBody.insertRow(tableBody.rows.length);
+                  
+                    // Hide the amilyarID column
+                    newRow.insertCell(0).style.display = 'none';
+    
+                    newRow.insertCell(1).textContent = row.blk;
+                    newRow.insertCell(2).textContent = row.lot;
+                    newRow.insertCell(3).textContent = row.owner;
+                    newRow.insertCell(4).textContent = row.amount || 100;
+                    newRow.insertCell(5).textContent = row.status || 'Unpaid';
+                    newRow.insertCell(6).innerHTML = '<div class="modify"><i class="fa-regular fa-pen-to-square edit-icon" data-amilyarid="' + row.amilyarID + '"></i></div>';
+                });
 
-            // Make an AJAX request to fetch filtered data
-            fetch(`fetch_filtered_data.php?selectedYear=${selectedYear}&selectedMonth=${selectedMonth}`)
-                .then(response => response.json())
-                .then(filteredData => {
-                    // Directly update the table with the filtered data
-                    var tableBody = document.getElementById('monthlyTable').getElementsByTagName('tbody')[0];
-                    tableBody.innerHTML = ''; // Clear existing rows
-
-                    // Iterate over the filtered data and append rows to the table
-                    filteredData.forEach(row => {
-                        var newRow = tableBody.insertRow(tableBody.rows.length);
-                        newRow.insertCell(0).textContent = row.dueID;
-                        newRow.insertCell(1).textContent = row.blk;
-                        newRow.insertCell(2).textContent = row.lot;
-                        newRow.insertCell(3).textContent = row.owner;
-                        newRow.insertCell(4).textContent = row.amount || 100; // Default value if amount is null
-                        newRow.insertCell(5).textContent = row.status || 'Unpaid'; // Default value if status is null
-                        newRow.insertCell(6).innerHTML = '<div class="modify"><i class="fa-regular fa-pen-to-square edit-icon" data-dueid="' + row.dueID + '"></i></div>';
-
-                    });
-                })
-                .catch(error => console.error('Error fetching filtered data:', error));
+            })
+        .catch(error => console.error('Error fetching filtered data:', error));
 }
 
 document.addEventListener('click', function (event) {
@@ -518,24 +494,24 @@ document.addEventListener('click', function (event) {
 
     // Check if the clicked element has the class 'edit-icon'
     if (target.classList.contains('edit-icon')) {
-        // Retrieve the dueID from the data-dueid attribute of the clicked icon
-        var dueID = target.getAttribute('data-dueid');
+        // Retrieve the amilyarID from the data-amilyarid attribute of the clicked icon
+        var amilyarID = target.getAttribute('data-amilyarid');
 
         // Log to the console for verification
-        console.log('Due ID:', dueID);
+        console.log('Amilyar ID:', amilyarID);
 
-        // Pass the dueID to the openEditForm function
-        openEditForm(dueID);
+        // Pass the amilyarID to the openEditForm function
+        openEditForm(amilyarID);
     }
 });
 
 // Function to open the edit form
-function openEditForm(dueID) {
-    // Use the dueID as needed to open the edit form
-    console.log('Open Edit Form for Due ID:', dueID);
+function openEditForm(amilyarID) {
+    // Use the amilyarID as needed to open the edit form
+    console.log('Open Edit Form for Amilyar ID:', amilyarID);
 
-    // For example, you can set the dueID as the value of an input field in the edit form
-    document.getElementById("dueID").value = dueID;
+    // For example, you can set the amilyarID as the value of an input field in the edit form
+    document.getElementById("amilyarID").value = amilyarID;
 
     // Show the edit form
     document.getElementById("editForm").style.display = "block";
@@ -546,10 +522,11 @@ function closeEditForm() {
     // Hide the edit form
     document.getElementById("editForm").style.display = "none";
 }
-    </script>
 
-            </body>
-        </html>
+            
+            </script>
+        </body>
+    </html>
 
 
 
