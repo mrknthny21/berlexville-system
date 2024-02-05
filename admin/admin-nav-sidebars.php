@@ -140,6 +140,18 @@
             margin-left: 250px; /* Adjusted to make space for the sidebar */
             padding: 20px; /* Optional: Add padding to content area */
         }
+
+            /* ... your existing styles ... */
+
+    .sidebar a.active {
+        background-color: #4F71CA; /* Set the background color for the active link */
+        color: white; /* Set text color for the active link */
+    }
+
+    .sidebar a.active img {
+        filter: invert(1); /* Invert the color of the icon for better visibility on the active link background */
+    }
+
     </style>
     <head>
         <meta charset="UTF-8">
@@ -176,15 +188,35 @@
         </div> 
 
         <div class="sidebar">
-            <a href="admin-landingpage.php"><img src="../assets/home.png" alt="Home Icon"> Home</a>
-            <a href="admin-records.php"><img src="../assets/records.png" alt="Records Icon"> Records</a>
-            <a href="admin-accounting.php"><img src="../assets/calculator.png" alt="Accounting Icon"> Accounting</a>
-            <a href="admin-feedback.php"><img src="../assets/feedback.png" alt="Feedback Icon"> Feedback</a>
-            <a href="admin-external.php"><img src="../assets/external.png" alt="External Content Icon"> External Content</a>
-        </div>
+    <a href="admin-landingpage.php" class="sidebar-link"><img src="../assets/home.png" alt="Home Icon"> Home</a>
+    <a href="admin-records.php" class="sidebar-link"><img src="../assets/records.png" alt="Records Icon"> Records</a>
+    <a href="admin-accounting.php" class="sidebar-link"><img src="../assets/calculator.png" alt="Accounting Icon"> Accounting</a>
+    <a href="admin-feedback.php" class="sidebar-link"><img src="../assets/feedback.png" alt="Feedback Icon"> Feedback</a>
+    <a href="admin-external.php" class="sidebar-link"><img src="../assets/external.png" alt="External Content Icon"> External Content</a>
+</div>
 
         <div class="content">
           
         </div>
     </body>
+
+    <script>
+    // Add this script to handle the click event and toggle the 'active' class
+    document.addEventListener("DOMContentLoaded", function () {
+        var sidebarLinks = document.querySelectorAll(".sidebar-link");
+
+        sidebarLinks.forEach(function (link) {
+            link.addEventListener("click", function () {
+                // Remove 'active' class from all links
+                sidebarLinks.forEach(function (otherLink) {
+                    otherLink.classList.remove("active");
+                });
+
+                // Add 'active' class to the clicked link
+                link.classList.add("active");
+            });
+        });
+    });
+</script>
+
 </html>

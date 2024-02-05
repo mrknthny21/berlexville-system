@@ -629,17 +629,17 @@ margin-bottom: 20px:
                                 <td><?php echo $donation['amount']; ?></td>
                                 
                                 <td>
-                                <?php if ($donation['officialCopy']) : ?>
-                                    <?php
-                                    // Get the filename from the officialCopy column
-                                    $filename = basename($donation['officialCopy']);
-                                    ?>
-                                    <a href="#" class="file-link" onclick="openImageModal('<?php echo $filename; ?>')">
-                                        <?php echo $filename; ?>
-                                    </a>
-                                <?php else : ?>
-                                    No Official Copy
-                                <?php endif; ?>
+                                    <?php if ($donation['officialCopy']) : ?>
+                                        <?php
+                                        // Get the filename from the officialCopy column
+                                        $filename = basename($donation['officialCopy']);
+                                        ?>
+                                        <a href="#" class="file-link" onclick="openImageModal('<?php echo $filename; ?>')">
+                                            <?php echo $filename; ?>
+                                        </a>
+                                    <?php else : ?>
+                                        No Official Copy
+                                    <?php endif; ?>
                                 </td>
                                 <td>
                                     <!-- Assuming you have Font Awesome for the icons -->
