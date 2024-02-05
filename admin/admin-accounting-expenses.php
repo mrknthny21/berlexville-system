@@ -340,6 +340,48 @@ $remainingBudget = $totalBudget - $totalExpenses;
         .form-popup {   
             display: none;
         }
+
+.status-box{
+  display: flex;
+  margin-left: 100px;
+}
+
+.budget-box{
+    background: white;
+  background: white;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width:  280px;
+  height: 100px;
+  margin: 10px;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.budget-box h1{
+margin-bottom: 50px:
+}
+
+.total-expenses-box{
+  background: white;
+  background: white;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width:  280px;
+  height: 100px;
+  margin: 10px;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.align-tbl-finances{
+  margin: 5px 0px 0px 5px;
+}
+
+.tabledisplay-finance #expense-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-top: 10px;
+}
         
         
 
