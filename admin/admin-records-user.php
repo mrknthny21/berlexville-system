@@ -60,7 +60,6 @@ if ($result && mysqli_num_rows($result) > 0) {
             align-items: flex-start;
             margin-top: 0vh;
         }
-
         .upperbox {
             border-bottom: 1px black solid;
             width: 100vw;
@@ -68,13 +67,39 @@ if ($result && mysqli_num_rows($result) > 0) {
             flex-direction: row;
             justify-content: space-between;
             padding: 10px;
-            margin-bottom: px;
+            margin-bottom: 0px;
         }
 
         .upperbox i {
-            font-size: 25px;
+            font-size: 30px;
+            margin-left: -28px;
+            margin-bottom:0px;
         }
 
+        .upperbox p{
+           margin-bottom: 0px;
+        }
+    .search-box {
+        display: flex;
+        align-items: center;
+        margin-left: 700px;
+  
+    }
+
+    .search-box input {
+        padding: 8px;
+        border: 1px solid black;
+        border-radius: 5px;
+        margin-right: 10px; /* Adjust margin if needed */
+        height:11px;
+    }
+
+    .search-box i {
+        font-size: 12px;
+        cursor: pointer;
+        color: #333; /* Icon color */
+
+    }
         .middlebox {
             width: 100vw;
             display: flex;
@@ -203,7 +228,26 @@ if ($result && mysqli_num_rows($result) > 0) {
             justify: left;
         }
 
-        
+        .search-box {
+        position: relative;
+        width: 200px; /* Adjust width as needed */
+        margin-right: 10px; /* Adjust margin if needed */
+    }
+
+    .search-box input {
+        padding: 8px 30px 8px 8px; /* Adjust padding for icon space */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .search-box .search-icon {
+        position: absolute;
+        right: 10px; /* Adjust right position as needed */
+        top: 50%; /* Center vertically */
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #333; /* Icon color */
+    }
     </style>
 
     <head>
@@ -215,13 +259,20 @@ if ($result && mysqli_num_rows($result) > 0) {
 
     <body>
         <div class ="content-area">
-            <div class="upperbox">
-                <p>User Accounts</p>
-                <a href="admin-records.php">
-                    <i class="fa-regular fa-square-caret-left"></i>
-                </a>
+        <div class="upperbox">
+         
+            <p>User Accounts</p>
+            <div class="search-box">
+                <input type="text" placeholder="Search...">
+                <i class="fas fa-search search-icon"></i>
+
+                
             </div>
-            
+
+            <a href="admin-records.php">
+            <i class="fa-regular fa-square-caret-left" style="color: black;"></i>
+            </a>
+        </div>
             <div class = "middlebox";>
 
                 <table>
@@ -298,36 +349,36 @@ if ($result && mysqli_num_rows($result) > 0) {
     
 
        <!-- HTML code for the form -->
-<div id="editForm" class="form-popup">
-    <form action="admin-manage-user.php" method="POST" class="form-container" enctype="multipart/form-data">
-        <h2>Edit Homeowner</h2>
+        <div id="editForm" class="form-popup">
+            <form action="admin-manage-user.php" method="POST" class="form-container" enctype="multipart/form-data">
+                <h2>Edit Homeowner</h2>
 
-        <label for="homeownerID"><b>Homeowner ID</b></label>
-        <input type="text" placeholder="Enter Homeowner ID" name="homeownerID" id="homeownerID" required>
+                <label for="homeownerID"><b>Homeowner ID</b></label>
+                <input type="text" placeholder="Enter Homeowner ID" name="homeownerID" id="homeownerID" required>
 
-        <label for="homeownerName"><b>Homeowner Name</b></label>
-        <input type="text" placeholder="Enter Homeowner Name" name="userName" id="homeownerName" required>
+                <label for="homeownerName"><b>Homeowner Name</b></label>
+                <input type="text" placeholder="Enter Homeowner Name" name="userName" id="homeownerName" required>
 
-        <label for="blk"><b>Block</b></label>
-        <input type="text" placeholder="Enter Block" name="userBlock" id="blk">
+                <label for="blk"><b>Block</b></label>
+                <input type="text" placeholder="Enter Block" name="userBlock" id="blk">
 
-        <label for="lot"><b>Lot</b></label>
-        <input type="text" placeholder="Enter Lot" name="userLot" id="lot">
+                <label for="lot"><b>Lot</b></label>
+                <input type="text" placeholder="Enter Lot" name="userLot" id="lot">
 
-        <label for="password"><b>Password</b></label>
-        <input type="text" placeholder="Enter Password" name="userPassword" id="password" required>
+                <label for="password"><b>Password</b></label>
+                <input type="text" placeholder="Enter Password" name="userPassword" id="password" required>
 
-        <!-- Add the role input field -->
-        <label for="role"><b>Role</b></label>
-        <input type="text" placeholder="Enter Role"  name="userRole"  id="role" required>
+                <!-- Add the role input field -->
+                <label for="role"><b>Role</b></label>
+                <input type="text" placeholder="Enter Role"  name="userRole"  id="role" required>
 
-        <br> <br>
-        <input type="hidden" name="editHomeownerID" id="editHomeownerID">
+                <br> <br>
+                <input type="hidden" name="editHomeownerID" id="editHomeownerID">
 
-        <button type="submit" class="btn" name="updateHomeowner">Update</button>
-        <button type="button" class="btn cancel" onclick="closeEditForm()">Cancel</button>
-    </form>
-</div>
+                <button type="submit" class="btn" name="updateHomeowner">Update</button>
+                <button type="button" class="btn cancel" onclick="closeEditForm()">Cancel</button>
+            </form>
+        </div>
 
           
         <form id="deleteUserForm" action="admin-manage-user.php" method="post">

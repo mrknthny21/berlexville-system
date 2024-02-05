@@ -229,7 +229,7 @@
         <div class="upperbox">
             <p>Feedback</p>
             <a href="user-landingPage.php">
-            <i class="fa-regular fa-square-caret-left"></i>
+            <i class="fa-regular fa-square-caret-left" style="color:black"></i>
         </a>
         </div>
 

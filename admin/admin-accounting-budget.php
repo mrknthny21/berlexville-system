@@ -36,6 +36,19 @@ $result = $conn->query($query);
 $row = $result->fetch_assoc();
 $totalBudget = $row['total_budget'];
 
+
+// Retrieving the total expenses for the year 2023
+$query = "SELECT SUM(amount) AS total_expenses FROM tbl_expenses";
+$result = $conn->query($query);
+$row = $result->fetch_assoc();
+$totalExpenses = $row['total_expenses'];
+
+// Calculating the remaining budget
+$remainingBudget = $totalBudget - $totalExpenses;
+
+
+
+
 // Assuming your table name is 'your_table_name'
 $tableName = 'tbl_monthly';
 
@@ -80,15 +93,8 @@ if ($resultDonation) {
 // Calculate the overall budget by adding the two totals
 $overallBudget = $totalDueIncome + $totalDonationAmount;
 
-
-// Retrieving the total expenses for the year 2023
-$query = "SELECT SUM(amount) AS total_expenses FROM tbl_expenses";
-$result = $conn->query($query);
-$row = $result->fetch_assoc();
-$totalExpenses = $row['total_expenses'];
-
-// Calculating the remaining budget
-$remainingBudget = $totalBudget - $totalExpenses;
+// Close the database connection
+mysqli_close($conn);
 ?>
 
 
@@ -633,6 +639,93 @@ margin-bottom: 20px:
     text-decoration: underline; /* Underline on hover */
     color: #007bff; /* Change color on hover, use the desired color */
 }
+
+
+.sources{
+  
+    width: 71vw;
+    height: 50vh;
+    display: flex;
+    flex-direction: row;
+  
+}
+
+.due-income {
+    border: solid 1px black;
+    width: 20vw;
+    height: 20vh;
+    border-radius: 10px;
+    margin-top: 5px;
+    background: #DFDA68;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin: 10px;
+    text-align: center;
+    border-radius: 15px;
+    border: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+}
+
+.due-income h2, .due-income p {
+    margin: 0; /* Remove default margin for h2 and p */
+}
+
+.due-income a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color from the parent */
+    display: block; /* Make the entire area clickable */
+    text-align: center; /* Center text horizontally */
+    padding: 10px; /* Add padding for better clickability */
+}
+
+.see {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    
+    margin-bottom: -80px;
+    justify-content: flex-end; /* Align elements to the right */
+    align-items: center; /* Center elements vertically */
+    height: 20px; /* Set a fixed height or adjust as needed */
+    margin-top: 15px;
+}
+
+
+.see i{
+    margin-left:5px;
+    justify-self: center;
+}
+
+.donation {
+    border: solid 1px black;
+    width: 20vw;
+    height: 20vh;
+    border-radius: 10px;
+    margin-top: 5px;
+    background: #87e38d;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin: 10px;
+    text-align: center;
+    border-radius: 15px;
+    border: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+}
+
+.donation h2, .donation p {
+    margin: 0; /* Remove default margin for h2 and p */
+}
+
+.donation a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color from the parent */
+    display: block; /* Make the entire area clickable */
+    text-align: center; /* Center text horizontally */
+    padding: 10px; /* Add padding for better clickability */
+}
+
     </style>
 
     <head>
@@ -646,7 +739,7 @@ margin-bottom: 20px:
     <body>
         <div class ="content-area">
             <div class="upperbox" >
-                <p>Expenses</p>
+                <p>Budget</p>
                 <a href="admin-accounting.php">
                     <i class="fa-regular fa-square-caret-left"></i>
                 </a>
@@ -667,62 +760,73 @@ margin-bottom: 20px:
                                 <p>Budget</p>
                             </div>
                         
-                            <div class="total-expenses-box">
-                                <ion-icon name="receipt-outline"></ion-icon>
-                                <h2><?php echo  '₱' ,$totalExpenses?></h2>
-                                <p> Total Expenses</p>
-                            </div>
-
-                            <div class="total-expenses-box">
-                                <ion-icon name="cash-outline"></ion-icon>
-                                <h2><?php echo  '₱' ,$remainingBudget?></h2>
-                                <p> Remaining Budget</p>
-                            </div>
+                            
                 </div>
 
                 <div class="align-tbl-finances">  
-                    <div class="table-box">
-                        <p>EXPENSES</p>
-                        <div class="tabledisplay-finance">
-                            <table id="expense-table">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Title</th>
-                                        <th>Date</th>
-                                        <th>Amount Spent</th>
-                                        <th>Receipt</th> <!-- New column for receipts -->
-                                        <th>Modify</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($expenses as $expense): ?>
-                                        <tr>
-                                        <td><?php echo $expense['expenseID']; ?></td>
-                                            <td><?php echo $expense['expenseName']; ?></td>
-                                            <td><?php echo date('Y-m-d', strtotime($expense['date'])); ?></td>
+                     <div class="table-box">
+                         <p>Sources of Income</p>
 
-                                            <td><?php echo $expense['amount']; ?></td>
-                                            <td>
-                                            <?php if ($expense['proof']) : ?>
-                                                <a href="#" class="file-link" onclick="openImageModal('<?php echo $expense['proof']; ?>')">
-                                                    <?php echo $expense['proof']; ?>
-                                                </a>
-                                            <?php else : ?>
-                                                No Receipt
-                                            <?php endif; ?>
-                                        </td>
-                                        <td>
-                                            <i class="fa-regular fa-pen-to-square edit-icon" data-expenseid="<?php echo $expense['expenseID']; ?>"></i>
+                         <div class="sources">
+                          
+                            <div class="due-income">
 
-                                            <i class="fa-regular fa-trash-can" onclick="deleteExpense(<?php echo $expense['expenseID']; ?>)"></i>
-                                        </td>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                            
+                                <ion-icon name="card-outline"></ion-icon>
+                                <h2><?php echo '₱' ,  $totalDueIncome?></h2>
+                                <p>Total Monthly Due Income </p>
+                              
+                                <a href="admin-accounting-monthly.php" >
+                                <div class="see">
+                                    <p>See more Info  </p> <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                            </a>
+
+                            </div>
+
+                            <div class="donation">                    
+                                <ion-icon name="card-outline"></ion-icon>
+                                <h2><?php echo '₱' ,  $totalDonationAmount?></h2>
+                                <p>Total Donations </p>
+
+                                <a href="admin-accounting-donation.php" >
+                                <div class="see">
+                                    <p>See more Info  </p> <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                </a>
+
+                            </div>
+
+
+
+
+
+                         </div>
+
+</div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- Modal -->
 <div id="imageModal">

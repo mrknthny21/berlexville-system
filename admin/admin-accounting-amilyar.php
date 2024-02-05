@@ -20,7 +20,7 @@ $selectedMonth = $_GET['selectedMonth'] ?? null;
 
 if ($selectedYear !== null && $selectedMonth !== null) {
     
-    $query = "SELECT h.blk, h.lot, h.name AS owner, m.dueID, m.amount, m.status
+    $query = "SELECT h.blk, h.lot, h.name AS owner, m.dueID, m.amount, m.status m.`date-of-payment`
               FROM tbl_homeowners h
               LEFT JOIN tbl_amilyar m ON h.accountID = m.accountID
               WHERE m.year = $selectedYear AND m.month = '$selectedMonth'";
@@ -35,6 +35,7 @@ if ($selectedYear !== null && $selectedMonth !== null) {
             $amount = $data['amount'];
             $status = $data['status'];
             $dueID = $data['dueID'];
+            $date_of_payment = $data['date-of-payment'];  // Added date_of_payment
 
             $homeownerMonthlyData[] = array(
                 'blk' => $blk,
@@ -43,6 +44,7 @@ if ($selectedYear !== null && $selectedMonth !== null) {
                 'amount' => $amount,
                 'status' => $status,
                 'dueID' => $dueID,  
+                'date-of-payment' => $date_of_payment, 
             );
         }
     } else {
@@ -60,9 +62,10 @@ mysqli_close($conn);
 
 <!DOCTYPE html>
 <html lang="en">
-    <style>
+<style>
          body {
             font-family: 'Poppins', sans-serif;
+            overflow-x: hidden; /* Hide horizontal overflow */
         }
 
         .content-area {
@@ -235,18 +238,23 @@ mysqli_close($conn);
             margin: auto;
             flex-direction: column;
             overflow: auto;
+            padding-top: 600px;
         }
 
         .title {
-        
             width: 100%;
-            margin-bottom: 10px;
+            height: 5vh;
             display: flex;
             flex-direction: row;
+            margin-top: 80px;
+            margin-left:-30px;
+            margin-bottom: -10vh;
+            
         }
 
         .title p {
             margin: 0; /* Remove default margin for the paragraph */
+            font-weight: bold;
         }
 
         .dropdown {
@@ -272,10 +280,10 @@ mysqli_close($conn);
             display: flex;
             flex-direction: row;
         }
-
         .year{
             display: flex;
             flex-direction: row;
+            margin-left: 0vw;
         }
 
         .popup {
@@ -357,8 +365,51 @@ mysqli_close($conn);
             display: none;
         }
         
+        #editForm select {
+            width: 100%;
+            padding: 8px; /* Add padding for better appearance */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            border: 1px solid black; /* Add a border for better visibility */
+            border-radius: 4px; /* Add border-radius for rounded corners */
+            margin-top: 10px;
+            
+        }
+        #editForm input[type="text"], #editForm input[type="date"] {
+            width: 100%;
+            padding: 8px; /* Add padding for better appearance */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            border: 1px solid black; /* Add a border for better visibility */
+            border-radius: 4px; /* Add border-radius for rounded corners */
+            margin-bottom: 10px; /* Add margin to separate input elements */
+        }
 
+        .month select,
+        .year select {
+            outline: none;
+            border: 1px solid #EFEFEF; /* Add border for better visibility if needed */
+            border-radius: 4px; /* Add border-radius for rounded corners */
+            padding: 8px; /* Add padding for better appearance */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            height: 5vh;
+            padding-bottom: 1px;
+            background-color: #EFEFEF;
+            font-family: 'Poppins', sans-serif;
+            margin-left: 0;
+        }
+        /* Vertically align text and select elements */
+        .month, .year {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Optional: Adjust margin or padding for better spacing */
+        .month p, .year p, .month select, .year select {
+            margin: 0;
+            padding: 5px; /* Adjust as needed */
+        }
+        
     </style>
+
 
     <head>
         <meta charset="UTF-8">
@@ -378,9 +429,6 @@ mysqli_close($conn);
             </div>  
 
             <div class="middlebox">
-              
-            <div class="tablebox">
-
             <div class="title" >      
                 <div class="dropdown">
                 
@@ -394,6 +442,9 @@ mysqli_close($conn);
                     </div>
                 </div>
             </div>
+            <div class="tablebox">
+
+            
 
                 <table id="monthlyTable">
                     <thead>
@@ -403,6 +454,7 @@ mysqli_close($conn);
                             <th>Lot</th>
                             <th>Owner</th>
                             <th>Amount</th>
+                            <th>Date of Payment</th>
                             <th>Status</th>
                             <th>Modify</th>
                         </tr>
@@ -415,6 +467,7 @@ mysqli_close($conn);
                                 <td><?php echo $row['lot']; ?></td>
                                 <td><?php echo $row['owner']; ?></td>
                                 <td><?php echo isset($row['amount']) ? $row['amount'] : 100; ?></td>
+                                <td><?php echo isset($row['date-of-payment']) ? $row['date-of-payment'] : '---'; ?></td>
                                 <td><?php echo isset($row['status']) ? $row['status'] : 'Unpaid'; ?></td>
                                 <td>
                                 <div class="modify">
@@ -438,11 +491,16 @@ mysqli_close($conn);
                     <input type="hidden" name="amilyarID" id="amilyarID">
 
                     <label for="paymentStatus"><b>Payment Status</b></label>
+                    <br>
                     <select name="paymentStatus" id="paymentStatus" required>
                         <option value="Unpaid" selected>Unpaid</option>
                         <option value="Exempted">Exempted</option>
                         <option value="Paid">Paid</option>
                     </select>
+
+                    <br> <br>
+                    <label for="dateOfPayment"><b>Date of Payment</b></label>
+                    <input type="date" name="dateOfPayment" id="dateOfPayment">
 
                     <button type="submit" name="editPaymentStatus" id="editPaymentStatus" class="fa-solid fa-pencil">Save Changes</button>
                     <button type="button" class="btn cancel" onclick="closeEditForm()">Cancel</button>
@@ -481,8 +539,9 @@ function updateTable() {
                     newRow.insertCell(2).textContent = row.lot;
                     newRow.insertCell(3).textContent = row.owner;
                     newRow.insertCell(4).textContent = row.amount || 100;
-                    newRow.insertCell(5).textContent = row.status || 'Unpaid';
-                    newRow.insertCell(6).innerHTML = '<div class="modify"><i class="fa-regular fa-pen-to-square edit-icon" data-amilyarid="' + row.amilyarID + '"></i></div>';
+                    newRow.insertCell(5).textContent = row['date-of-payment'] || '---'; 
+                    newRow.insertCell(6).textContent = row.status || 'Unpaid';
+                    newRow.insertCell(7).innerHTML = '<div class="modify"><i class="fa-regular fa-pen-to-square edit-icon" data-amilyarid="' + row.amilyarID + '"></i></div>';
                 });
 
             })

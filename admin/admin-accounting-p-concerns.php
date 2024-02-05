@@ -1,40 +1,37 @@
-<?php 
+<?php
 include 'admin-nav-sidebars.php';
 include '../db_connect.php';
 
-// Initialize an array to store the resolution data
-$resolutions = array();
+// Initialize an array to store the payment concern data
+$paymentConcerns = array();
 
-$query = "SELECT * FROM tbl_resolution";
+$query = "SELECT * FROM tbl_paymentconcerns";
 $result = mysqli_query($conn, $query);
 
-// Retrieve resolution data from the database
+// Retrieve payment concern data from the database
 if ($result) {
-    while ($resolution = mysqli_fetch_assoc($result)) {
-        // Extract resolution details
-        $resolutionID = $resolution['resolutionID']; 
-        $title = $resolution['title'];
-        $dateCreated = $resolution['dateCreated'];
-        $dateImplemented = $resolution['dateImplemented'];
-        $officialCopy = $resolution['officialCopy'];
+    while ($paymentConcern = mysqli_fetch_assoc($result)) {
+        // Extract payment concern details
+        $paymentConcernID = $paymentConcern['paymentConcernID'];
+        $accountID = $paymentConcern['accountID'];
+        $message = $paymentConcern['message'];
+        $dateSent = $paymentConcern['dateSent'];
+        $status = $paymentConcern['status'];
 
-        // Create an array with resolution details
-        $resolutions[] = array(
-            'resolutionID' => $resolutionID,
-            'title' => $title,
-            'dateCreated' => $dateCreated,
-            'dateImplemented' => $dateImplemented,
-            'officialCopy' => $officialCopy
-            
+        // Create an array with payment concern details
+        $paymentConcerns[] = array(
+            'paymentConcernID' => $paymentConcernID,
+            'accountID' => $accountID,
+            'message' => $message,
+            'dateSent' => $dateSent,
+            'status' => $status
         );
     }
 } else {
     // Handle the case where the query fails
     echo "Error executing query: " . mysqli_error($conn);
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
     <style>
@@ -195,6 +192,11 @@ if ($result) {
             justify: left;
         }
 
+        a {
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+    }
     </style>
 
     <head>
@@ -208,57 +210,51 @@ if ($result) {
     <body>
         <div class ="content-area">
             <div class="upperbox">
-                <p>Board Resolutions</p>
-                <a href="admin-records.php">
+                <p>Payment Concerns</p>
+                <a href="admin-accounting.php">
                     <i class="fa-regular fa-square-caret-left"></i>
                 </a>
             </div>  
 
             <div class="middlebox">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Resolution ID</th>
-                        <th>Title</th>
-                        <th>Date Created</th>
-                        <th>Official Copy</th>
-                        <th>Modify</th>
-                    </tr>
-                </thead>
-                <tbody>
-              <?php foreach ($resolutions as $row): ?>
-                    <tr>
-                        <td><?php echo $row['resolutionID']; ?></td>
-                        <td><?php echo $row['title']; ?></td>
-                        <td><?php echo $row['dateCreated']; ?></td>
-                        <td>
-                        <?php if (isset($row['officialCopy'])): ?>
-                            <a href="http://localhost/berlexville-system/resolution-files/<?php echo $row['officialCopy']; ?>" target="_blank">
-                                <?php echo basename($row['officialCopy']); ?>
-                            </a>
-                        <?php else: ?>
-                            <!-- Handle the case where officialCopy is not set -->
-                        <?php endif; ?>
-                        </td>
-        <td>
-            <div class="modify">
-                <i class="fa-regular fa-pen-to-square edit-icon" data-resolutionid="<?php echo $row['resolutionID']; ?>"></i>
-                <i class="fa-regular fa-trash-can" onclick="deleteResolution(<?php echo $row['resolutionID']; ?>)"></i>
-            </div>
-        </td>
-    </tr>
-<?php endforeach; ?>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>AccountID</th>
+                <th>Message</th>
+                <th>Date Sent</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Modify</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($paymentConcerns as $row): ?>
+                <tr>
+                    <td><?php echo $row['paymentConcernID']; ?></td>
+                    <td><?php echo $row['accountID']; ?></td>
+                    <td><?php echo $row['message']; ?></td>
+                    <td><?php echo $row['dateSent']; ?></td>
+                    <td><a href="admin-view-message.php?id=<?php echo $row['paymentConcernID']; ?>" target="_blank">View</a></td>
+                    <td><?php echo $row['status']; ?></td>
+                    <td>
+                        <div class="modify">
+                            <!-- Modify the link and function accordingly -->
+                       
+                            <i class="fa-regular fa-pen-to-square edit-icon" data-paymentconcernid="<?php echo $row['paymentConcernID']; ?>"></i>
+                            <i class="fa-regular fa-trash-can" onclick="deletePaymentConcern(<?php echo $row['paymentConcernID']; ?>)"></i>
+                        </div>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 
-                </tbody>
-            </table>
             </div>
 
-            <div class="bottombox">
-                <div class="add-button" onclick="showAddForm()">
-                    <i class="fa-solid fa-plus"></i>
-                    <p>Add New Resolution</p>
-                </div>
-             </div>
+           
         </div>
 
 

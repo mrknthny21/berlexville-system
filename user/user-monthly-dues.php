@@ -1,5 +1,70 @@
+<?php
+// Start the session
+session_start();
+
+// Assuming you have a database connection
+include '../db_connect.php';
+
+// Fetch year data from the database
+$yearQuery = "SELECT yearID, year FROM tbl_year";
+$yearResult = mysqli_query($conn, $yearQuery);
+
+// Check for errors in the query execution
+if (!$yearResult) {
+    die('Error in the query: ' . mysqli_error($conn));
+}
+
+$years = mysqli_fetch_all($yearResult, MYSQLI_ASSOC);
+
+
+
+// Check if the 'accountID' session variable is set
+if (isset($_SESSION['accountID'])) {
+    // Retrieve the account ID from the session
+    $accountID = $_SESSION['accountID'];
+
+    // Query to retrieve monthly payments for the specific accountID
+    $query = "SELECT month, `date-of-payment`, amount, status FROM tbl_monthly WHERE accountID = $accountID";
+    $result = $conn->query($query);
+
+    // Check if the query was successful
+    if ($result) {
+        $monthNames = [
+            1 => 'January',
+            2 => 'February',
+            3 => 'March',
+            4 => 'April',
+            5 => 'May',
+            6 => 'June',
+            7 => 'July',
+            8 => 'August',
+            9 => 'September',
+            10 => 'October',
+            11 => 'November',
+            12 => 'December'
+        ];
+
+       
+    } else {
+        // Handle the case when the query fails
+        echo "Error executing the query: " . $conn->error;
+    }
+
+    $conn->close();
+} else {
+    // Handle the case when 'accountID' session variable is not set
+    echo "Error: Account ID not found in the session.";
+}
+
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
+
     <style>
         
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
@@ -11,20 +76,23 @@
             margin:0;
             border-box:0;
         }
-
-        body{
+        body {
             background-color: #EFEFEF;
             font-family: 'Poppins', sans-serif;
+            overflow-x: hidden; /* Hide horizontal scrollbar */
+            overflow-y: scroll; /* Set to scroll only vertically */
         }
 
         .navbar{
-            height:10vh;
+            height: 10vh;
             width: 100vw;
             background-color: #4F71CA;
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
             display: flex;
             justify-content: space-between;
-            z-index: 2;
+            position: sticky;
+            top: 0; /* Stick to the top */
+            z-index: 100; /* Set a higher z-index to ensure it appears above other elements */
         }
 
         .logobox{
@@ -103,7 +171,7 @@
    
         .sidebar {
             height: 100%;
-            width: 16vw;
+            width: 20vw;
             position: fixed;
             background-color: white; /* Set background color to white */
             padding-top: 10px; /* Adjusted to match the height of the navbar */
@@ -114,11 +182,12 @@
         .sidebar a {
             padding: 15px 20px;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 18px;
             color: #333; /* Set text color */
             display: block;
             transition: 0.3s;
             align-items: center;
+            font-size: bold;
         }
 
         .sidebar img {
@@ -163,23 +232,92 @@
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            padding: 10px;
+            padding-top: 15px;
         }
 
         .upperbox i {
             font-size: 25px;
         }
         .eval_sheet button{
-    background-color: #6FBB76;
-    color: white;
-    width: 200px;
-    height: 50px;
-    font-family: 'Poppins';
-    margin-left: 425px;
-}
-.eval_sheet button:hover{
-    background-color: #008A0E;
-}
+            background-color: #6FBB76;
+            color: white;
+            width: 200px;
+            height: 50px;
+            font-family: 'Poppins';
+            margin-left: 425px;
+            
+        }
+        .eval_sheet button:hover{
+            background-color: #008A0E;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            border: 1px solid black;
+            align-items: center;
+            margin-top: -50px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+            border: 1px solid black;
+            
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .tablebox{
+            border: 1px solid black;
+            border-radius: 10px;
+            width: 67vw;
+            height:80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-items: center;
+            margin: auto;
+            flex-direction: column;
+            overflow: auto;
+            margin-top: 10px;
+            padding-top:15px;
+        }
+
+        .year{
+            
+            display: flex;
+            margin-top: 5px;
+            margin-bottom: -10px;
+        }
+
+        .month select,
+        .year select {
+            outline: none;
+            border: 1px solid #EFEFEF; /* Add border for better visibility if needed */
+            border-radius: 4px; /* Add border-radius for rounded corners */
+            padding: 8px; /* Add padding for better appearance */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            height: 5vh;
+            padding-bottom: 1px;
+            background-color: #EFEFEF;
+            font-family: 'Poppins', sans-serif;
+            margin-left: 0;
+        }
+        /* Vertically align text and select elements */
+        .month, .year {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Optional: Adjust margin or padding for better spacing */
+        .month p, .year p, .month select, .year select {
+            margin: 0;
+            padding: 5px; /* Adjust as needed */
+        }
     </style>
     <head>
         <meta charset="UTF-8">
@@ -187,7 +325,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <title>Payments</title>
     </head>
-   <body>
+   <body>   
         <div class="navbar">
             <div class="logobox">
                 <div class="logo">
@@ -233,16 +371,55 @@
             <i class="fa-regular fa-square-caret-left"></i>
         </a>
         </div>
+        <div class="middlebox">
 
-        <a href="admin-records-user.php" class="tab-box">
-            <p></p>
-        </a>
+        <div class="year">
+            <p>Year of  </p>
+            <select name='year' id="yearDropdown" onchange="updateTable()">
+                <?php foreach ($years as $year): ?>
+                    <option value="<?php echo $year['yearID']; ?>"><?php echo $year['year']; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+            <div class="tablebox">
+     
+                <table id="monthlyTable">
+                    <thead>
+                        <tr>
+                            <th>MONTH</th>
+                            <th>DATE OF PAYMENT</th>
+                            <th>AMOUNT</th>
+                            <th>PAYMENT STATUS</th>
+                        </tr>
+                    </thead>
 
-        <div class="eval_sheet">
-        <a href="monthly-dues-payment-concern.php">
-        <button type="submit" class="btn btn-primary">SUBMIT A CONCERN</button>
+                    <tbody>
+                        <?php
+                         while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>{$monthNames[$row['month']]}</td>";
+                            $date = ($row['date-of-payment'] !== '0000-00-00') ? $row['date-of-payment'] : '---';
+                            echo "<td>{$date}</td>";
+                            echo "<td>{$row['amount']}</td>";
+                            echo "<td>{$row['status']}</td>";
+                            echo "</tr>";
+                        }
+                        
+                        ?>
+                    </tbody>
+
+                
+                </table>
+            
+            </div>
+
+       
         </div>
         
+        </div>
+        <div class="eval_sheet">
+            <a href="monthly-dues-payment-concern.php">
+            <button type="submit" class="btn btn-primary">SUBMIT A CONCERN</button>
         </div>
     </body>
 </html> 

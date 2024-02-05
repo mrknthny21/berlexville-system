@@ -156,15 +156,31 @@
             font-size: 25px;
         }
 
+
+        .upperbox {
+            border-bottom: 1px black solid;
+            width: 100vw;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding-top:10px;
+        }
+
+        .upperbox i {
+            font-size: 25px;
+            text-decoration: none;
+            color: black;
+        }
+
 .eval_sheet p{
             width: 50vw;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            padding: 10px;
+            padding-top: 10px;
 }
 .eval_sheet textarea{
-    margin-left: 30px;
+    margin-left: px;
     width: 1005px;
     height: 150px;
     font-family: 'Poppins';
@@ -177,7 +193,7 @@
     width: 200px;
     height: 50px;
     font-family: 'Poppins';
-    margin-left: 625px;
+    margin-left: 550px;
 }
 .eval_sheet button:hover{
     background-color: #008A0E;
@@ -187,7 +203,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <title>Amilyar</title>
+        <title>Concern</title>
     </head>
    <body>
         <div class="navbar">
@@ -230,20 +246,25 @@
         <div class ="content-area">
 
         <div class="upperbox">
-            <p>Community Suggestions</p>
+            <p>Community Suggestion</p>
             <a href="user-feedback.php">
-            <i class="fa-regular fa-square-caret-left"></i>
+            <i class="fa-regular fa-square-caret-left" style="color: black;"></i>
         </a>
-        </div>
-
+            </div>
+            <form action="user-manage-feedback.php" method="post">
         <div class="eval_sheet">
-        <p>Your opinion matters, please write your concern below</p>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-        <input type="checkbox" id="" name="" value="">
-        <label for="">Submit anonymously</label>
-        <button type="submit" class="btn btn-primary">SUBMIT</button>
-        </div>
+            <p>Your opinion matters, please write your concern below</p>
+            <textarea class="form-control" name="suggestionMessage" id="exampleFormControlTextarea1" rows="5"></textarea>
 
+            <label for="anonymousSelect">Submit as:</label>
+            <select name="submissionType" id="anonymousSelect">
+                <option value="anonymous">Anonymous</option>
+                <option value="notAnonymous">Not Anonymous</option>
+            </select>
+            
+            <button type="submit" class="btn btn-primary">SUBMIT</button>
+        </div>
+    </form>
         </div>
     </body>
 </html> 

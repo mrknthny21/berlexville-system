@@ -323,7 +323,7 @@
 
 
                 <div class = "picbox">
-                    <p class="textp"> Picture </p>
+                    <p class="textp">  </p>
                 </div>
         </div>
 

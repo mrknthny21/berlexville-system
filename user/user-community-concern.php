@@ -187,7 +187,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <title>Amilyar</title>
+        <title>Concern</title>
     </head>
    <body>
         <div class="navbar">
@@ -234,16 +234,21 @@
             <a href="user-feedback.php">
             <i class="fa-regular fa-square-caret-left"></i>
         </a>
-        </div>
-
+            </div>
+            <form action="user-manage-feedback.php" method="post">
         <div class="eval_sheet">
-        <p>Your opinion matters, please write your concern below</p>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-        <input type="checkbox" id="" name="" value="">
-        <label for="">Submit anonymously</label>
-        <button type="submit" class="btn btn-primary">SUBMIT</button>
-        </div>
+            <p>Your opinion matters, please write your concern below</p>
+            <textarea class="form-control" name="suggestionMessage" id="exampleFormControlTextarea1" rows="5"></textarea>
 
+            <label for="anonymousSelect">Submit as:</label>
+            <select name="submissionType" id="anonymousSelect">
+                <option value="anonymous">Anonymous</option>
+                <option value="notAnonymous">Not Anonymous</option>
+            </select>
+            
+            <button type="submit" class="btn btn-primary">SUBMIT</button>
+        </div>
+    </form>
         </div>
     </body>
 </html> 

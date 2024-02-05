@@ -34,7 +34,7 @@ $selectedMonth = $_GET['selectedMonth'] ?? null; // Assuming you are passing sel
 // Check if both year and month are selected
 
 if ($selectedYear !== null && $selectedMonth !== null) {
-    $query = "SELECT h.blk, h.lot, h.name AS owner, m.dueID, m.amount, m.status
+    $query = "SELECT h.blk, h.lot, h.name AS owner, m.dueID, m.amount, m.status, m.`date-of-payment`
               FROM tbl_homeowners h
               LEFT JOIN tbl_monthly m ON h.accountID = m.accountID
               WHERE m.year = $selectedYear AND m.month = '$selectedMonth'";
@@ -51,6 +51,7 @@ if ($selectedYear !== null && $selectedMonth !== null) {
             $amount = $data['amount'];
             $status = $data['status'];
             $dueID = $data['dueID'];
+            $dateOfPayment = ($data['date-of-payment'] == '0000-00-00') ? 'Not paid yet' : $data['date-of-payment'];
 
             // Create an array with data details
             $homeownerMonthlyData[] = array(
@@ -59,11 +60,12 @@ if ($selectedYear !== null && $selectedMonth !== null) {
                 'owner' => $owner,
                 'amount' => $amount,
                 'status' => $status,
-                'dueID' => $dueID,  // Add the 'dueID' to the array
+                'dueID' => $dueID,
+                'date-of-payment' => $dateOfPayment
             );
         }
     } else {
-        
+        // Handle no results
     }
 }
 
@@ -80,6 +82,7 @@ mysqli_close($conn);
     <style>
          body {
             font-family: 'Poppins', sans-serif;
+            overflow-x: hidden; /* Hide horizontal overflow */
         }
 
         .content-area {
@@ -252,18 +255,23 @@ mysqli_close($conn);
             margin: auto;
             flex-direction: column;
             overflow: auto;
+            padding-top: 600px;
         }
 
         .title {
-        
             width: 100%;
-            margin-bottom: 10px;
+            height: 5vh;
             display: flex;
             flex-direction: row;
+            margin-top: 80px;
+            margin-left:-30px;
+            margin-bottom: -10vh;
+            
         }
 
         .title p {
             margin: 0; /* Remove default margin for the paragraph */
+            font-weight: bold;
         }
 
         .dropdown {
@@ -374,7 +382,49 @@ mysqli_close($conn);
             display: none;
         }
         
+        #editForm select {
+            width: 100%;
+            padding: 8px; /* Add padding for better appearance */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            border: 1px solid black; /* Add a border for better visibility */
+            border-radius: 4px; /* Add border-radius for rounded corners */
+            margin-top: 10px;
+            
+        }
+        #editForm input[type="text"], #editForm input[type="date"] {
+            width: 100%;
+            padding: 8px; /* Add padding for better appearance */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            border: 1px solid black; /* Add a border for better visibility */
+            border-radius: 4px; /* Add border-radius for rounded corners */
+            margin-bottom: 10px; /* Add margin to separate input elements */
+        }
 
+        .month select,
+        .year select {
+            outline: none;
+            border: 1px solid #EFEFEF; /* Add border for better visibility if needed */
+            border-radius: 4px; /* Add border-radius for rounded corners */
+            padding: 8px; /* Add padding for better appearance */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            height: 5vh;
+            padding-bottom: 1px;
+            background-color: #EFEFEF;
+            font-family: 'Poppins', sans-serif;
+            margin-left: 0;
+        }
+        /* Vertically align text and select elements */
+        .month, .year {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Optional: Adjust margin or padding for better spacing */
+        .month p, .year p, .month select, .year select {
+            margin: 0;
+            padding: 5px; /* Adjust as needed */
+        }
+        
     </style>
 
     <head>
@@ -390,89 +440,95 @@ mysqli_close($conn);
             <div class="upperbox">
                 <p>Monthly Dues</p>
                 <a href="admin-accounting.php">
-                    <i class="fa-regular fa-square-caret-left"></i>
+                    <i class="fa-regular fa-square-caret-left" style="color: black;"></i>
                 </a>
             </div>  
 
             <div class="middlebox">
-              
-            <div class="tablebox">
 
             <div class="title" >      
                 <div class="dropdown">
-                    <div class="month">
-                        <p>Month of  </p>
-                        <select name='month' id="monthDropdown" onchange="updateTable()">
-                            <?php foreach ($months as $month): ?>
-                                <option value="<?php echo $month['monthID']; ?>"><?php echo $month['month']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+                <div class="month">
+                <p>Month of  </p>
+                <select name='month' id="monthDropdown" onchange="updateTable()">
+                    <?php foreach ($months as $month): ?>
+                        <option value="<?php echo $month['monthID']; ?>"><?php echo $month['month']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
                     <div class="year">
                         <p>Year of  </p>
                         <select name='year' id="yearDropdown" onchange="updateTable()">
-                            <?php foreach ($years as $year): ?>
-                                <option value="<?php echo $year['yearID']; ?>"><?php echo $year['year']; ?></option>
-                            <?php endforeach; ?>
+                           <option> 2023 </option>
+                           <option> 2024 </option>
                         </select>
                     </div>
                 </div>
             </div>
+            <div class="tablebox">
+                
+            <table id="monthlyTable">
+    <thead>
+        <tr>
+            <th>DueID</th>
+            <th>Block</th>
+            <th>Lot</th>
+            <th>Owner</th>
+            <th>Amount</th>
+            <th>Date of Payment</th>
+            <th>Status</th>
+            <th>Modify</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($homeownerMonthlyData as $row): ?>
+            <tr>
+                <td><?php echo $row['dueID']; ?></td>
+                <td><?php echo $row['blk']; ?></td>
+                <td><?php echo $row['lot']; ?></td>
+                <td><?php echo $row['owner']; ?></td>
+                <td><?php echo isset($row['amount']) ? $row['amount'] : 100; ?></td>
+                <td>
+                    <?php
+                        $dateOfPayment = isset($row['date-of-payment']) ? $row['date-of-payment'] : '---';
+                        echo ($dateOfPayment == '0000-00-00') ? 'Not paid yet' : $dateOfPayment;
+                    ?>
+                </td>
+                <td><?php echo isset($row['status']) ? $row['status'] : 'Unpaid'; ?></td>
+                <td>
+                    <div class="modify">
+                        <i class="fa-regular fa-pen-to-square edit-icon" data-dueid="<?php echo $row['dueID']; ?>"></i>
+                    </div>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 
-                <table id="monthlyTable">
-                    <thead>
-                        <tr>
-                            <th>DueID</th>
-                            <th>Block</th>
-                            <th>Lot</th>
-                            <th>Owner</th>
-                            <th>Amount</th>
-                            <th>Status</th>
-                            <th>Modify</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($homeownerMonthlyData as $row): ?>
-                            <tr>
-                                <td><?php echo $row['dueID']; ?></td>
-                                <td><?php echo $row['blk']; ?></td>
-                                <td><?php echo $row['lot']; ?></td>
-                                <td><?php echo $row['owner']; ?></td>
-                                <td><?php echo isset($row['amount']) ? $row['amount'] : 100; ?></td>
-                                <td><?php echo isset($row['status']) ? $row['status'] : 'Unpaid'; ?></td>
-                                <td>
-                                <div class="modify">
-                                <i class="fa-regular fa-pen-to-square edit-icon" data-dueid="<?php echo $row['dueID']; ?>"></i>
-                                </div>
-                            </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+
+            <div id="editForm" class="form-popup">
+                <form action="admin-manage-duePayment.php" method="POST" class="form-container" enctype="multipart/form-data">
+                    <h2>Edit Payment Status</h2>
+             
+                    <input type="hidden" name="dueID" id="dueID">
+
+                    <label for="paymentStatus"><b>Payment Status</b></label>
+                    <br> 
+                    <select name="paymentStatus" id="paymentStatus" required>
+                        <option value="Unpaid" selected>Unpaid</option>
+                        
+                        <option value="Paid">Paid</option>
+                    </select>
+                    <br> <br>
+                    <label for="dateOfPayment"><b>Date of Payment</b></label>
+                    <input type="date" name="dateOfPayment" id="dateOfPayment">
+
+                    <button type="submit" name="editPaymentStatus" id="editPaymentStatus" class="fa-solid fa-pencil">Save Changes</button>
+                    <button type="button" class="btn cancel" onclick="closeEditForm()">Cancel</button>
+                </form>
             </div>
 
-
-
-
-
-        <div id="editForm" class="form-popup">
-            <form action="admin-manage-duePayment.php" method="POST" class="form-container" enctype="multipart/form-data">
-                <h2>Edit Payment Status</h2>
-
-                <input type="hidden" name="dueID" id="dueID">
-
-                <label for="paymentStatus"><b>Payment Status</b></label>
-                <select name="paymentStatus" id="paymentStatus" required>
-                    <option value="Unpaid" selected>Unpaid</option>
-                    <option value="Exempted">Exempted</option>
-                    <option value="Paid">Paid</option>
-                </select>
-
-                <button type="submit" name="editPaymentStatus" id="editPaymentStatus "class="fa-solid fa-pencil">Save Changes</button>
-                <button type="button" class="btn cancel" onclick="closeEditForm()">Cancel</button>
-            </form>
-        </div>
 
     <script>
 
@@ -505,8 +561,9 @@ mysqli_close($conn);
                         newRow.insertCell(2).textContent = row.lot;
                         newRow.insertCell(3).textContent = row.owner;
                         newRow.insertCell(4).textContent = row.amount || 100; // Default value if amount is null
-                        newRow.insertCell(5).textContent = row.status || 'Unpaid'; // Default value if status is null
-                        newRow.insertCell(6).innerHTML = '<div class="modify"><i class="fa-regular fa-pen-to-square edit-icon" data-dueid="' + row.dueID + '"></i></div>';
+                        newRow.insertCell(5).textContent = row['date-of-payment'] || '---'; // Use the correct property name for date-of-payment
+                        newRow.insertCell(6).textContent = row.status || 'Unpaid'; // Default value if status is null
+                        newRow.insertCell(7).innerHTML = '<div class="modify"><i class="fa-regular fa-pen-to-square edit-icon" data-dueid="' + row.dueID + '"></i></div>';
 
                     });
                 })

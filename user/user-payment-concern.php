@@ -1,3 +1,7 @@
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
     <style>
@@ -257,12 +261,15 @@
         </a>
         </div>
 
-        <div class="eval_sheet">
-        <p>Please write your concern below</p>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-        <input type="checkbox" id="" name="" value="">
-        <label for="">Submit anonymously</label>
-        <button type="submit" class="btn btn-primary">SUBMIT</button>
+        <form action="user-manage-paymentConcern.php" method="post">
+            <div class="eval_sheet">
+                <p>Please write your concern below</p>
+                <textarea class="form-control" name="concernMessage" id="exampleFormControlTextarea1" rows="5"></textarea>
+                <input type="checkbox" id="" name="" value="">
+                
+                <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </div>
+        </form>
         </div>
 
         </div>

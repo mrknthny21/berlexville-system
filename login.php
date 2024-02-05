@@ -3,14 +3,16 @@
 include 'db_connect.php';
 session_start();
 
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['submit'])) {
-        $username = $_POST['id'];
-        $password = $_POST['password'];
+        $username = mysqli_real_escape_string($conn, $_POST['id']);
+        $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-        $Result = mysqli_query($conn, "SELECT accountID, password, 'admin' as role FROM tbl_admin WHERE accountID ='$username' AND password='$password'
-		UNION
-		SELECT accountID, password, 'user' as role FROM tbl_homeowners WHERE accountID ='$username' AND password='$password'");
+        $Result = mysqli_query($conn, "SELECT accountID, password, role FROM tbl_homeowners WHERE accountID ='$username' AND password='$password'");
+
+
+ 
 
         if (!$Result) {
             // Query execution failed
@@ -27,22 +29,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['name'] = $username;
             $_SESSION['account_id'] = $id;
 
-            if ($role == 'admin') {
+            if ($role == 'ADMIN') {
                 header("location: admin/admin-landingpage.php?id=$id");
                 exit();
-            } elseif ($role == 'user') {
+            } elseif ($role == 'USER') {
                 header("location: user/user-landingPage.php?id=$id");
                 exit();
             }
         } else {
             // No matching user found
-            echo ("No data matched");
+            echo "No data matched";
             exit();
         }
     }
 }
 ?>
-
+    
 
 
 

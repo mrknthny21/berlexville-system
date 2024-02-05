@@ -125,7 +125,7 @@ if ($result && mysqli_num_rows($result) > 0) {
     <body>
         <div class ="content-area">
             <div class="upperbox">
-                <p>Board Resolutions</p>
+                <p>Legal Documents</p>
                 <a href="admin-records.php">
                     <i class="fa-regular fa-square-caret-left"></i>
                 </a>
@@ -162,7 +162,7 @@ if ($result && mysqli_num_rows($result) > 0) {
             <div class="bottombox">
                 <div class="add-button" onclick="showAddForm()">
                     <i class="fa-solid fa-plus"></i>
-                    <p>Add New Resolution</p>
+                    <p>Add New Document</p>
                 </div>
              </div>
         </div>

@@ -103,7 +103,7 @@
    
         .sidebar {
             height: 100%;
-            width: 16vw;
+            width: 18vw;
             position: fixed;
             background-color: white; /* Set background color to white */
             padding-top: 10px; /* Adjusted to match the height of the navbar */
@@ -149,11 +149,13 @@
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            padding: 10px;
+            padding-top:10px;
         }
 
         .upperbox i {
             font-size: 25px;
+            text-decoration: none;
+            color: black;
         }
 
 .eval_sheet p{
@@ -161,10 +163,10 @@
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            padding: 10px;
+            padding-top: 10px;
 }
 .eval_sheet textarea{
-    margin-left: 30px;
+    margin-left: px;
     width: 1005px;
     height: 150px;
     font-family: 'Poppins';
@@ -177,7 +179,7 @@
     width: 200px;
     height: 50px;
     font-family: 'Poppins';
-    margin-left: 625px;
+    margin-left: 810px;
 }
 .eval_sheet button:hover{
     background-color: #008A0E;
@@ -252,17 +254,21 @@
 
         <div class="upperbox">
             <p>Amilyar Payment Concern</p>
-            <a href="user-amilyar.php">
+            <a href="user-monthly-dues.php">
             <i class="fa-regular fa-square-caret-left"></i>
         </a>
         </div>
 
-        <div class="eval_sheet">
-        <p>Please submit any payments related concern, we will provide a response as soon as possible!</p>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-        <input type="checkbox" id="" name="" value="">
-        <label for="">Submit anonymously</label>
-        <button type="submit" class="btn btn-primary">SUBMIT</button>
+        <form action="user-manage-paymentConcern.php" method="post">
+            <div class="eval_sheet">
+                <p>Please submit any payments related concern, we will provide a response as soon as possible!</p>
+                <textarea class="form-control" name="concernMessage" id="exampleFormControlTextarea1" rows="5"></textarea>
+               
+              
+                <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </div>
+        </form>
+
         </div>
 
         </div>

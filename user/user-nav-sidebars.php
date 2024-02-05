@@ -18,13 +18,15 @@
         }
 
         .navbar{
-            height:10vh;
+            height: 10vh;
             width: 100vw;
             background-color: #4F71CA;
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
             display: flex;
             justify-content: space-between;
-            z-index: 2;
+            position: sticky;
+            top: 0; /* Stick to the top */
+            z-index: 100; /* Set a higher z-index to ensure it appears above other elements */
         }
 
         .logobox{
@@ -103,7 +105,7 @@
    
         .sidebar {
             height: 100%;
-            width: 16vw;
+            width: 18vw;
             position: fixed;
             background-color: white; /* Set background color to white */
             padding-top: 10px; /* Adjusted to match the height of the navbar */

@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editPaymentStatus']))
         echo "Invalid Amilyar ID.";
     } else {
         // Perform the update query
-        $updateQuery = "UPDATE tbl_amilyar SET status = '$paymentStatus' WHERE amilyarID = $amilyarID";
+        $updateQuery = "UPDATE tbl_amilyar SET status = '$paymentStatus' `date-of-payment` = '$dateOfPayment' WHERE amilyarID = $amilyarID"; 
 
         $result = mysqli_query($conn, $updateQuery);
 

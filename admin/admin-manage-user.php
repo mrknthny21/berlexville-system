@@ -14,7 +14,7 @@ if (isset($_POST['accountID']) && isset($_POST['deleteResident'])) {
     exit();
 } elseif (isset($_POST['editHomeownerID'])) {
     // Retrieve form data
-    $userID = $_POST['homeownerID'];
+    $userID = $_POST['accountID'];
     $userName = $_POST['userName'];
     $userBlock = $_POST['userBlock'];
     $userLot = $_POST['userLot'];
@@ -23,6 +23,7 @@ if (isset($_POST['accountID']) && isset($_POST['deleteResident'])) {
 
     // Construct the update query
     $query = "UPDATE tbl_homeowners SET
+                accountID = '$userID',
                 name = '$userName',
                 blk = '$userBlock',
                 lot = '$userLot',
@@ -37,7 +38,6 @@ if (isset($_POST['accountID']) && isset($_POST['deleteResident'])) {
         // Update failed
         echo "Error updating user details: " . mysqli_error($conn);
     }
-
 
 } elseif (isset($_POST['addUser'])) {
     $userName = $_POST['name'];

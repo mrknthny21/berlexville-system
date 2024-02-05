@@ -2,9 +2,6 @@
 
 
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <style>
@@ -69,18 +66,18 @@
 
     <div class ="content-area">
 
-        <a href="admin-records-user.php" class="tab-box">
+        <a href="admin-feedback-polls.php" class="tab-box">
             <i class="fa-regular fa-circle-user"></i>
             <p>Polls</p>
         </a>
 
 
-        <a href="admin-records-residence.php" class="tab-box">
+        <a href="admin-feedback-concerns.php" class="tab-box">
         <i class="fa-regular fa-message"></i>
             <p>Community Concerns</p>
         </a>
 
-        <a href="admin-records-resident.php" class="tab-box">
+        <a href="admin-feedback-suggestion.php" class="tab-box">
         <i class="fa-regular fa-comments"></i>
             <p>Community Suggestion</p>
         </a>
