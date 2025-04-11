@@ -751,7 +751,7 @@ margin-bottom: 20px:
                                 <div class="budget-box-add" onclick="showAddForm()">
                                 
                                     <i class="fa-solid fa-plus"></i>
-                                        <p>Add New Expense</p>
+                                        <p>Add New Budget</p>
                                 </div>
                             
                                 <div class="budget-box">
@@ -797,7 +797,18 @@ margin-bottom: 20px:
 
                             </div>
 
+                            <div class="donation" style="background-color:white">                    
+                                <ion-icon name="card-outline"></ion-icon>
+                                <h2><?php echo '₱' ,  $totalDonationAmount?></h2>
+                                <p>Local Barangay </p>
 
+                                <a href="admin-accounting-donation.php" >
+                                <div class="see">
+                                    <p>See more Info  </p> <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                                </a>
+
+                            </div>
 
 
 
@@ -837,18 +848,18 @@ margin-bottom: 20px:
 </div>
                     <div id="addForm" class="form-popup">
                         <form action="admin-manage-expenses.php" method="POST" class="form-container" enctype="multipart/form-data">
-                            <h2>Add Expense</h2>
+                            <h2>Add Buudget</h2>
 
                             <label for="date"><b>Date</b></label>
                             <input type="date" name="date" required>
 
-                            <label for="expenseName"><b>Expense Name</b></label>
+                            <label for="expenseName"><b>Budget source </b></label>
                             <input type="text" name="expenseName" placeholder="Enter Expense Name" required>
 
                             <label for="amount"><b>Amount</b></label>
                             <input type="text" name="amount" placeholder="Enter Amount" required>
 
-                            <label for="receiptImage"><b>Receipt Image</b></label>
+                            <label for="receiptImage"><b>total</b></label>
                             <input type="file" name="receiptImage" accept="image/*">
 
                             <button type="submit" name="addExpense" class="fa-solid fa-plus" onclick="closeAddForm()">Add</button>

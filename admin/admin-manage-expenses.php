@@ -59,68 +59,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: admin-accounting-expenses.php');
             exit();
         }
-    } else {
+
         // Insert new expense
-    } elseif (isset($_POST['addDonation'])) {
-    $donator = $_POST['donator'];
-    $amount = $_POST['amount'];
-    $date = $_POST['date'];
-
-    // Process receipt image upload
-    if (isset($_FILES['receiptImage']) && $_FILES['receiptImage']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = 'C:/xampp/htdocs/berlexville-system/receipts-expenses/';
-        $uploadFile = $uploadDir . basename($_FILES['receiptImage']['name']);
-
-        // Check if file already exists
-        if (file_exists($uploadFile)) {
-            echo "Sorry, file already exists.";
-        } else {
+    } elseif (isset($_POST['addExpense'])) {
+        $expenseName = $_POST['expenseName'];
+        $date = $_POST['date'];
+        $amount = $_POST['amount'];
+    
+        // Process receipt image upload
+        if (isset($_FILES['receiptImage']) && $_FILES['receiptImage']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = 'C:/xampp/htdocs/berlexville-system/receipts-expenses/';
+            $uploadFile = $uploadDir . basename($_FILES['receiptImage']['name']);
+    
             // Move the uploaded file to the designated folder
             if (move_uploaded_file($_FILES['receiptImage']['tmp_name'], $uploadFile)) {
                 // Store the filename in the database
-                $officialCopy = $_FILES['receiptImage']['name'];
-
+                $proof = $_FILES['receiptImage']['name'];
+    
                 // Use prepared statement to insert data into the database
-                $insertQuery = "INSERT INTO tbl_donation (donator, amount, date, officialCopy) VALUES (?, ?, ?, ?)";
+                $insertQuery = "INSERT INTO tbl_expenses (expenseName, date, amount, proof) VALUES (?, ?, ?, ?)";
                 $stmt = $conn->prepare($insertQuery);
-                $stmt->bind_param("ssss", $donator, $amount, $date, $officialCopy);
-
+                $stmt->bind_param("ssss", $expenseName, $date, $amount, $proof);
+    
                 if ($stmt->execute()) {
                     // Set a success message in the session
-                    $_SESSION['donationAdded'] = true;
+                    $_SESSION['expenseAdded'] = true;
                     // Close the form by redirecting to the same page
-                    header('Location: admin-accounting-donation.php');
+                    header('Location: admin-accounting-expenses.php');
                     exit();
                 } else {
                     // Set an error message in the session if insertion fails
-                    $_SESSION['donationAdded'] = false;
+                    $_SESSION['expenseAdded'] = false;
                     echo "Error inserting data into the database: " . $stmt->error;
                 }
             } else {
                 echo "Error moving uploaded file.";
             }
-        }
-    } else {
-        // If no receipt image is uploaded, set filename to NULL
-        $officialCopy = NULL;
-
-        // Use prepared statement to insert data into the database
-        $insertQuery = "INSERT INTO tbl_donation (donator, amount, date, officialCopy) VALUES (?, ?, ?, ?)";
-        $stmt = $conn->prepare($insertQuery);
-        $stmt->bind_param("ssss", $donator, $amount, $date, $officialCopy);
-
-        if ($stmt->execute()) {
-            // Set a success message in the session
-            $_SESSION['donationAdded'] = true;
-            // Close the form by redirecting to the same page
-            header('Location: admin-accounting-donation.php');
-            exit();
         } else {
-            // Set an error message in the session if insertion fails
-            $_SESSION['donationAdded'] = false;
-            echo "Error inserting data into the database: " . $stmt->error;
+            // If no receipt image is uploaded, set filename to NULL
+            $proof = NULL;
+    
+            // Use prepared statement to insert data into the database
+            $insertQuery = "INSERT INTO tbl_expenses (expenseName, date, amount, proof) VALUES (?, ?, ?, ?)";
+            $stmt = $conn->prepare($insertQuery);
+            $stmt->bind_param("sss", $expenseName, $date, $amount, $proof);
+    
+            if ($stmt->execute()) {
+                // Set a success message in the session
+                $_SESSION['expenseAdded'] = true;
+                // Close the form by redirecting to the same page
+                header('Location: admin-accounting-expenses.php');
+                exit();
+            } else {
+                // Set an error message in the session if insertion fails
+                $_SESSION['expenseAdded'] = false;
+                echo "Error inserting data into the database: " . $stmt->error;
+            }
         }
     }
 }
-
-?>
+?>    

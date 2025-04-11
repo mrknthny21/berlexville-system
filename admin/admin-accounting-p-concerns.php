@@ -222,7 +222,7 @@ if ($result) {
             <tr>
                 <th>ID</th>
                 <th>AccountID</th>
-                <th>Message</th>
+           
                 <th>Date Sent</th>
                 <th>Message</th>
                 <th>Status</th>
@@ -234,7 +234,7 @@ if ($result) {
                 <tr>
                     <td><?php echo $row['paymentConcernID']; ?></td>
                     <td><?php echo $row['accountID']; ?></td>
-                    <td><?php echo $row['message']; ?></td>
+                  
                     <td><?php echo $row['dateSent']; ?></td>
                     <td><a href="admin-view-message.php?id=<?php echo $row['paymentConcernID']; ?>" target="_blank">View</a></td>
                     <td><?php echo $row['status']; ?></td>

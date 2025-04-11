@@ -230,21 +230,16 @@
         <div class ="content-area">
 
         <div class="upperbox">
-            <p>Community Concern</p>
+            <p>Replying to</p>
             <a href="user-feedback.php">
             <i class="fa-regular fa-square-caret-left"></i>
         </a>
             </div>
             <form action="user-manage-feedback.php" method="post">
         <div class="eval_sheet">
-            <p>Your opinion matters, please write your concern below</p>
+    
             <textarea class="form-control" name="suggestionMessage" id="exampleFormControlTextarea1" rows="5"></textarea>
 
-            <label for="anonymousSelect">Submit as:</label>
-            <select name="submissionType" id="anonymousSelect">
-                <option value="anonymous">Anonymous</option>
-                <option value="notAnonymous">Not Anonymous</option>
-            </select>
             
             <button type="submit" class="btn btn-primary">SUBMIT</button>
         </div>

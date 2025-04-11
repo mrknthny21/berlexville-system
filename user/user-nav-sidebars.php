@@ -180,6 +180,48 @@
         .upperbox i {
             font-size: 25px;
         }
+
+        .sidebar a.active {
+    background-color: #648BBA; /* Set a different background color for the active link */
+    color: black; /* Set a different text color for the active link */
+}
+
+/* Rest of your existing CSS code */
+
+.sidebar a:hover,
+.sidebar a.active {
+    background-color: #648BBA; /* Set background color on hover and for the active link */
+}
+
+/* You can also modify the indicator style based on your preference */
+.sidebar .indicator {
+    background-color: #4F71CA;
+    width: 5px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+}
+
+.sidebar a.active .indicator {
+    display: block;
+}
+
+.navlinks a.active {
+        color: #4F71CA;
+    }
+
+    .navlinks a.active::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: #4F71CA; /* Indicator color */
+        position: relative;
+        top: 8px; /* Adjust the indicator position as needed */
+    }
+
     </style>
     <head>
         <meta charset="UTF-8">
@@ -215,11 +257,28 @@
         </div> 
 
         <div class="sidebar">
-            <a href="user-landingPage.php"><img src="../assets/home.png" alt="Home Icon"> Home</a>
-            <a href="user-personal-information.php"><img src="../assets/records.png" alt="Records Icon"> Personal Information</a>
-            <a href="user-payments.php"><img src="../assets/calculator.png" alt="Accounting Icon"> Accounting</a>
-            <a href="user-community.php"><img src="../assets/feedback.png" alt="Feedback Icon"> Community</a>
-            <a href="user-feedback.php"><img src="../assets/external.png" alt="External Content Icon">Feedback</a>
-        </div>
+    <a href="user-landingPage.php" class="sidebar-link ">
+        <img src="../assets/home.png" alt="Home Icon">
+        Home
+        <div class="indicator"></div>
+    </a>
+    <a href="user-personal-information.php" class="sidebar-link">
+        <img src="../assets/records.png" alt="Records Icon">
+        Personal Information
+    </a>
+    <a href="user-payments.php" class="sidebar-link ">
+        <img src="../assets/calculator.png" alt="Accounting Icon">
+        Accounting
+    </a>
+    <a href="user-community.php" class="sidebar-link ">
+        <img src="../assets/feedback.png" alt="Feedback Icon">
+        Community
+    </a>
+    <a href="user-feedback.php" class="sidebar-link active">
+        <img src="../assets/external.png" alt="External Content Icon">
+        Feedback
+    </a>
+</div>
+
     </body>
 </html> 

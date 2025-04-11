@@ -141,16 +141,35 @@
             padding: 20px; /* Optional: Add padding to content area */
         }
 
-            /* ... your existing styles ... */
+        /* Add a new class for the active link in the sidebar */
+.sidebar a.active {
+    background-color: #648BBA; /* Set a different background color for the active link */
+    color: black; /* Set a different text color for the active link */
+}
 
-    .sidebar a.active {
-        background-color: #4F71CA; /* Set the background color for the active link */
-        color: white; /* Set text color for the active link */
-    }
+/* Rest of your existing CSS code */
 
-    .sidebar a.active img {
-        filter: invert(1); /* Invert the color of the icon for better visibility on the active link background */
-    }
+.sidebar a:hover,
+.sidebar a.active {
+    background-color: #648BBA; /* Set background color on hover and for the active link */
+}
+
+/* You can also modify the indicator style based on your preference */
+.sidebar .indicator {
+    background-color: #4F71CA;
+    width: 5px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+}
+
+.sidebar a.active .indicator {
+    display: block;
+}
+
+  
 
     </style>
     <head>
@@ -188,12 +207,30 @@
         </div> 
 
         <div class="sidebar">
-    <a href="admin-landingpage.php" class="sidebar-link"><img src="../assets/home.png" alt="Home Icon"> Home</a>
-    <a href="admin-records.php" class="sidebar-link"><img src="../assets/records.png" alt="Records Icon"> Records</a>
-    <a href="admin-accounting.php" class="sidebar-link"><img src="../assets/calculator.png" alt="Accounting Icon"> Accounting</a>
-    <a href="admin-feedback.php" class="sidebar-link"><img src="../assets/feedback.png" alt="Feedback Icon"> Feedback</a>
-    <a href="admin-external.php" class="sidebar-link"><img src="../assets/external.png" alt="External Content Icon"> External Content</a>
+    <a href="admin-landingpage.php" class="sidebar-link ">
+        <img src="../assets/home.png" alt="Home Icon">
+        Home
+        
+    </a>
+    <a href="admin-records.php" class="sidebar-link ">
+        <img src="../assets/records.png" alt="Records Icon">
+        Records
+    </a>
+    <!-- Add the "active" class to other active links as needed -->
+    <a href="admin-accounting.php" class="sidebar-link active ">
+        <img src="../assets/calculator.png" alt="Accounting Icon">
+        Accounting
+    </a>
+    <a href="admin-feedback.php" class="sidebar-link ">
+        <img src="../assets/feedback.png" alt="Feedback Icon">
+        Feedback
+    </a>
+    <a href="admin-external.php" class="sidebar-link ">
+        <img src="../assets/external.png" alt="External Content Icon">
+        External Content
+    </a>
 </div>
+
 
         <div class="content">
           

@@ -169,7 +169,7 @@ $result = mysqli_query($conn, $query);
             </a>
 
             <!-- Add your reply button functionality here -->
-            <a href="#" class="reply-button">
+            <a href="../user/user-community-concern.php" class="reply-button">
                 <i class="fa-solid fa-reply"></i>
                 <p>Reply</p>
             </a>
