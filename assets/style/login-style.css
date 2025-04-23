@@ -1,0 +1,191 @@
+
+        
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+*{
+    margin:0;
+    
+}
+
+body{
+    background-color: #EFEFEF;
+    font-family: 'Poppins', sans-serif;
+    display:block;
+    width: 100%;
+}
+
+.navbar{
+
+    height:7vh;
+    width: 100%;
+    background-color: #4F71CA;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: row;
+    align-items: center;   
+}
+
+
+
+.title-berlexN{
+    height:50%;
+    width: 130vw;
+    vertical-align: center;
+    margin-left: 8%;
+    
+ 
+    
+}
+
+.title-berlexN p {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(20px, 4vw, 28px);
+    font-weight: 700;
+
+}
+
+.middlebox {
+    width: 26%;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid black;
+    padding: 1rem; /* optional, for spacing inside */
+}
+
+/* Mobile View Fix */
+@media screen and (max-width: 768px) {
+    .middlebox {
+        width: 90%; /* take most of the screen */
+        margin: 20px auto; /* reduce margin */
+    }
+}
+
+
+.midlogobox{
+    height: 8vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.logo{  
+    height:80px;
+    width: 100px;
+ 
+  
+}
+
+.logo img {
+    width:100px;
+    height: 80px;
+   
+    
+}
+
+.letters {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+}
+
+.title-berlex {
+    height: 35px;
+    width: 100%;
+}
+
+.title-berlex p {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(40px, 5vw, 45px); /* Scales between 24px and 40px based on viewport */
+    font-weight: 700;
+  
+    margin: 0;
+}
+
+.title-home {
+    height: 20px;
+    width: 100%;
+   
+    margin-top: 10px;
+}
+
+.title-home p {
+    font-family: 'Abel', sans-serif;
+    font-weight: lighter;
+    font-size: clamp(26px, 3vw, 30px); /* Scales between 16px and 23px */
+    margin: 0;
+}
+.home {
+    height: 40px;
+    width: 10vw;
+    margin-right: 8%;
+    align-items: center;  
+    padding-top: 10px;
+    
+}
+
+.home img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+.loginbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center vertically */
+    padding-top: 55px;
+    height: auto;
+    width: auto;
+    border: 1px black solid;
+    margin:5px;
+    padding-bottom: 55px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+/* Optional: Add some styling to the form elements */
+form {
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+
+label {
+margin-left: 0px;
+font-family: 'Poppins', sans-serif;
+
+}
+
+input{
+    width: 300px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+h2 {
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 16px;
+    margin-top: 0px;  
+
+}
+
+button{
+    margin-top: 30px;
+    height: 35px;
+    border: solid 1px black;
+    border-radius: 5px;
+
+    background-color: #4F71CA;
+}
+
+
+

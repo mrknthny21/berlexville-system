@@ -17,6 +17,8 @@
             position: fixed;
           margin-top: 12vh;
           margin-left: 0px;
+          padding-left: 4px;
+          padding-right: 10px;
       }
 
       .tab-box {
@@ -42,7 +44,7 @@
         width: 100vw;
         justify-content: space-evenly;
         margin-top: 3vh;
-
+        gap: 5px;
       }
 
     
@@ -77,13 +79,14 @@
 
 
         .title{
-            width: 100vw;
+            width: 100%;
             text-align: center;
             margin-top: 5vh;
+            border: 1px solid black;
         }
         
         .title p {
-            font-size: 25px;
+            font-size: clamp(10px, 4vw, 25px);
             font-weight: bold;
             font-family: 'Poppins', sans-serif;
             color:  #4F71CA;
@@ -96,7 +99,6 @@
             flex-direction: row;
             flex-wrap: wrap;
             padding:15px;
-           
             justify-content: center;
             align-items:center;
         }
@@ -110,6 +112,24 @@
             flex-direction: column;
             margin: 10px;
         }
+
+
+        /* Responsive for mobile */
+        @media (max-width: 768px) {
+            .folders {
+                flex-direction: column;
+                flex-wrap: nowrap;
+                align-items: stretch;
+                height: auto;
+                overflow-y: auto; /* Enables vertical scrolling */
+            }
+
+            .collection {
+                width: 80vw; /* Full width with margin */
+                height: auto; /* Optional: auto height or adjust as needed */
+            }
+        }
+
 
         .photo{
             width: 100%;
@@ -132,8 +152,15 @@
             margin-top: 2vh;
           
         }
+ 
 
-
+        .label {
+            font-size: clamp(13px, 1.5vw,20px);
+            color: #555;
+            text-align: center;
+        
+            color:  black;
+        }
     </style>
 
     <head>
@@ -170,7 +197,7 @@
                     echo '<i class="fa-regular fa-circle-user"></i>';
                     echo '<p>' . $resident_population . '</p>';
                     echo '</div>';
-                    echo '<p>Resident Population</p>';
+                    echo '<p class="label">Resident Population</p>';
                     echo '</a>';
                 } else {
                     echo "Error: " . $sql . "<br>" . $conn->error;
@@ -196,7 +223,7 @@
                 echo '<p>' . $total_households . '</p>';
                 echo '</div>';
                 echo '<div>';
-                echo '<p>Current Total Households</p>';
+                echo '<p class="label">Current Total Households</p>';
                 echo '</div>';
                 echo '</a>';
             } else {
@@ -210,7 +237,7 @@
                         <i class="fa-regular fa-calendar"></i>
                         <p> 14 </p>
                     </div>
-                    <p>Years Since Foundation</p>
+                    <p class="label">Years Since Foundation</p>
                 </a>
             </div>
 
