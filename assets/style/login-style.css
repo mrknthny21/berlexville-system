@@ -101,23 +101,21 @@ body{
 
 .title-berlex p {
     font-family: 'Poppins', sans-serif;
-    font-size: clamp(40px, 5vw, 45px); /* Scales between 24px and 40px based on viewport */
+    font-size: clamp(10px, 5vw, 45px); /* Scales between 24px and 40px based on viewport */
     font-weight: 700;
-  
     margin: 0;
 }
 
 .title-home {
     height: 20px;
     width: 100%;
-   
     margin-top: 10px;
 }
 
 .title-home p {
     font-family: 'Abel', sans-serif;
     font-weight: lighter;
-    font-size: clamp(26px, 3vw, 30px); /* Scales between 16px and 23px */
+    font-size: clamp(20px, 5vw, 15px); /* Scales between 16px and 23px */
     margin: 0;
 }
 .home {

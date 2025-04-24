@@ -45,7 +45,7 @@
         justify-content: space-evenly;
         margin-top: 3vh;
         gap: 5px;
-      }
+        }
 
     
 
@@ -101,6 +101,8 @@
             padding:15px;
             justify-content: center;
             align-items:center;
+            overflow-y: auto;
+    scroll-behavior: smooth;
         }
 
         .collection{
@@ -161,6 +163,10 @@
         
             color:  black;
         }
+
+        html {
+    scroll-behavior: smooth;
+}
     </style>
 
     <head>
